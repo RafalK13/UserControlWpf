@@ -29,6 +29,7 @@ namespace UserControlWPF
             DataContext = this;
         }
 
+        #region TekstProp
         //zmienna wyświetlana w teksBox
         public string TekstProp
         {
@@ -36,28 +37,35 @@ namespace UserControlWPF
             set { SetValue(TekstPropProperty, value); }
         }
         public static readonly DependencyProperty TekstPropProperty =
-            DependencyProperty.Register("TekstProp", typeof(string), typeof(UserControl1), new PropertyMetadata( null, new PropertyChangedCallback(OnCurrentReadingChanged)));
+            DependencyProperty.Register("TekstProp", typeof(string), typeof(UserControl1), new PropertyMetadata(null, new PropertyChangedCallback(OnCurrentReadingChanged)));
 
-        //tabela/lista z danymi dla DataGrid
-        public IEnumerable SourceProp
-        {
-            get { return (IEnumerable)GetValue(SourceProperty); }
-            set { SetValue(SourceProperty, value); }
-        }
-        public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("SourceProp", typeof(IEnumerable), typeof(UserControl1));
-
-       
         private static void OnCurrentReadingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            UserControl1 u = (UserControl1)d;
-            if (u.dvSource != null)
-            {
-                string query = $"name LIKE '%{u.TekstProp}%'";
-                u.dvSource.RowFilter = query;
-            }
+            //UserControl1 u = (UserControl1)d;
+            //if (u.dvSource != null)
+            //{
+            //    string query = $"name LIKE '%{u.TekstProp}%'";
+            //    u.dvSource.RowFilter = query;
+            //}
+        }
+        #endregion
+
+        public DataTable dataGridSource
+        {
+            get { return (DataTable)GetValue(dataGridSourceProperty); }
+            set { SetValue(dataGridSourceProperty, value); }
         }
 
+        // Using a DependencyProperty as the backing store for dataGridSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty dataGridSourceProperty =
+            DependencyProperty.Register("dataGridSource", typeof(DataTable), typeof(UserControl1), new PropertyMetadata( null, new PropertyChangedCallback( OnInit)));
+
+        private static void OnInit(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            UserControl1 u = (UserControl1)d;
+            u.dvSource = new DataView (u.dataGridSource);
+        }
+        
         public DataView dvSource
         {
             get { return (DataView)GetValue(dvSourceProperty); }
@@ -68,37 +76,12 @@ namespace UserControlWPF
         public static readonly DependencyProperty dvSourceProperty =
             DependencyProperty.Register("dvSource", typeof(DataView), typeof(UserControl1));
 
-        
-        public string tekstSelected
-        {
-            get { return (string)GetValue(tekstSelectedProperty); }
-            set { SetValue(tekstSelectedProperty, value); }
-        }
 
-        // Using a DependencyProperty as the backing store for tekstSelected.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty tekstSelectedProperty =
-            DependencyProperty.Register("tekstSelected", typeof(string), typeof(UserControl1));
 
-        public DataRow rowSelected
-        {
-            get { return (DataRow)GetValue(rowSelectedProperty); }
-            set { SetValue(rowSelectedProperty, value); }
-        }
 
-        // Using a DependencyProperty as the backing store for rowSelected.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty rowSelectedProperty =
-            DependencyProperty.Register("rowSelected", typeof(DataRow), typeof(UserControl1), new PropertyMetadata(null, new PropertyChangedCallback( onRowSelected)));
 
-        private static void onRowSelected(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            MessageBox.Show("DUPA");
-           //UserControl1 u = (UserControl1)d;
-           // if (u.dvSource != null)
-           // {
-           //     MessageBox.Show(u.rowSelected["name"].ToString());
-           //     //u.tekstSelected = u.rowSelected["name"].ToString();
-           // }
-        }
+
+
 
     }
 }

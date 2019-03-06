@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel LastChildFill="False">
-        <TextBox    DockPanel.Dock="Top"
+        <!--<TextBox    DockPanel.Dock="Top"
                     Name="Test"
                     Height="50"
                     Background="Beige"
@@ -18,16 +18,17 @@
                     Height="50"
                     Background="Beige"
                     FontSize="27"
-                    Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}"/>
+                    Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}"/>-->
         <DataGrid   DockPanel.Dock="Top"
                     Name="DataGridRaf"
+                    SelectionMode="Single"
                     Background="LightGreen"
                     CanUserAddRows="False"
                     IsReadOnly="True"
-                    ItemsSource="{Binding dvSource}"                    
-                    SelectedItem="{Binding rowSelected}"
+                    ItemsSource="{Binding dvSource}"
                     HeadersVisibility="None"
-                    AutoGenerateColumns="False" RowDetailsVisibilityMode="Visible">
+                    AutoGenerateColumns="False" 
+                    RowDetailsVisibilityMode="Visible">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding name}"
                                     Width="*"/>
@@ -43,7 +44,7 @@
                 </Style>
             </DataGrid.RowStyle>
 
-            <DataGrid.Style>
+            <!--<DataGrid.Style>
                 <Style TargetType="DataGrid">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
@@ -62,7 +63,7 @@
 
                     </Style.Triggers>
                 </Style>                
-            </DataGrid.Style>
+            </DataGrid.Style>-->
         </DataGrid>
     </DockPanel>
 </UserControl>

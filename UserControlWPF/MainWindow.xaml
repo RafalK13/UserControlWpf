@@ -11,7 +11,8 @@
     </Window.Resources>
     <StackPanel>
         <local:UserControl1 
-                            dvSource="{Binding Source={StaticResource dane}, Path=dvSourceRaf}"/>
+                            TekstProp="Rafałek"
+                            dataGridSource="{Binding Source={StaticResource dane}, Path=dtSourceRaf}"/>
         <Button Height="50"/>
     </StackPanel>
 </Window>
