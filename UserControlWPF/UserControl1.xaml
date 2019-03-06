@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel LastChildFill="False">
-        <!--<TextBox    DockPanel.Dock="Top"
+        <TextBox    DockPanel.Dock="Top"
                     Name="Test"
                     Height="50"
                     Background="Beige"
@@ -18,7 +18,7 @@
                     Height="50"
                     Background="Beige"
                     FontSize="27"
-                    Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}"/>-->
+                    Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}"/>
         <DataGrid   DockPanel.Dock="Top"
                     Name="DataGridRaf"
                     SelectionMode="Single"
@@ -26,8 +26,10 @@
                     CanUserAddRows="False"
                     IsReadOnly="True"
                     ItemsSource="{Binding dvSource}"
+                    SelectedItem="{Binding selectedRow}"
+                    DisplayMemberPath="name"
                     HeadersVisibility="None"
-                    AutoGenerateColumns="False" 
+                    AutoGenerateColumns="False"
                     RowDetailsVisibilityMode="Visible">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding name}"
@@ -44,7 +46,7 @@
                 </Style>
             </DataGrid.RowStyle>
 
-            <!--<DataGrid.Style>
+            <DataGrid.Style>
                 <Style TargetType="DataGrid">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
@@ -53,9 +55,9 @@
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
 
-                        <DataTrigger Binding="{Binding ElementName=TextBoxRaf, Path=IsMouseOver}" Value="true">
+                        <!--<DataTrigger Binding="{Binding ElementName=TextBoxRaf, Path=IsMouseOver}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
+                        </DataTrigger>-->
 
                         <DataTrigger Binding="{Binding ElementName=DataGridRaf, Path=IsMouseOver}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
@@ -63,7 +65,7 @@
 
                     </Style.Triggers>
                 </Style>                
-            </DataGrid.Style>-->
+            </DataGrid.Style>
         </DataGrid>
     </DockPanel>
 </UserControl>

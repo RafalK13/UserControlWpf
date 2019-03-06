@@ -41,15 +41,31 @@ namespace UserControlWPF
 
         private static void OnCurrentReadingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //UserControl1 u = (UserControl1)d;
-            //if (u.dvSource != null)
-            //{
-            //    string query = $"name LIKE '%{u.TekstProp}%'";
-            //    u.dvSource.RowFilter = query;
-            //}
+            UserControl1 u = (UserControl1)d;
+            if (u.dvSource != null)
+            {
+                //string query = $"name LIKE '%{u.TekstProp}%'";
+                //u.dvSource.RowFilter = query;
+
+                setFilter(u.dvSource, u.TekstProp);
+            }
         }
         #endregion
 
+        #region tekstSelected
+
+        public string tekstSelected
+        {
+            get { return (string)GetValue(tekstSelectedProperty); }
+            set { SetValue(tekstSelectedProperty, value); }
+        }
+
+        public static readonly DependencyProperty tekstSelectedProperty =
+            DependencyProperty.Register("tekstSelected", typeof(string), typeof(UserControl1));
+
+        #endregion
+
+        #region dataGridSource
         public DataTable dataGridSource
         {
             get { return (DataTable)GetValue(dataGridSourceProperty); }
@@ -58,14 +74,17 @@ namespace UserControlWPF
 
         // Using a DependencyProperty as the backing store for dataGridSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty dataGridSourceProperty =
-            DependencyProperty.Register("dataGridSource", typeof(DataTable), typeof(UserControl1), new PropertyMetadata( null, new PropertyChangedCallback( OnInit)));
+            DependencyProperty.Register("dataGridSource", typeof(DataTable), typeof(UserControl1), new PropertyMetadata(null, new PropertyChangedCallback(OnInit)));
 
         private static void OnInit(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             UserControl1 u = (UserControl1)d;
-            u.dvSource = new DataView (u.dataGridSource);
+            u.dvSource = new DataView(u.dataGridSource);
+            setFilter(u.dvSource, u.TekstProp);
         }
-        
+        #endregion
+
+        #region dvSource
         public DataView dvSource
         {
             get { return (DataView)GetValue(dvSourceProperty); }
@@ -75,12 +94,35 @@ namespace UserControlWPF
         // Using a DependencyProperty as the backing store for dvSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty dvSourceProperty =
             DependencyProperty.Register("dvSource", typeof(DataView), typeof(UserControl1));
+        #endregion
 
+        #region setFilter
+        private static void setFilter(DataView dv, string t)
+        {
+            string query = $"name LIKE '%{t}%'";
+            dv.RowFilter = query;
+        }
+        #endregion
 
+        #region selectedRow
 
+        public DataRowView selectedRow
+        {
+            get { return (DataRowView)GetValue(selectedRowProperty); }
+            set { SetValue(selectedRowProperty, value); }
+        }
 
+        public static readonly DependencyProperty selectedRowProperty =
+            DependencyProperty.Register("selectedRow", typeof(DataRowView), typeof(UserControl1), new PropertyMetadata( null, new PropertyChangedCallback(OnSelectRow)));
 
-
+        private static void OnSelectRow(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            UserControl1 u = (UserControl1)d;
+            //u.dvSource = new DataView(u.dataGridSource);
+            //setFilter(u.dvSource, u.TekstProp);
+            u.tekstSelected = u.selectedRow["name"].ToString();          
+        }
+        #endregion
 
 
     }

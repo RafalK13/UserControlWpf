@@ -11,8 +11,12 @@
     </Window.Resources>
     <StackPanel>
         <local:UserControl1 
-                            TekstProp="Rafałek"
+                            x:Name="t1"
                             dataGridSource="{Binding Source={StaticResource dane}, Path=dtSourceRaf}"/>
         <Button Height="50"/>
+        <TextBox 
+                    Text="{Binding ElementName=t1, Path=tekstSelected}"
+                    Background="LightCyan"
+                    FontSize="27" AcceptsTab="True" />
     </StackPanel>
 </Window>
