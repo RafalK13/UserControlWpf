@@ -9,9 +9,8 @@
     <DockPanel LastChildFill="False">
         <TextBox    DockPanel.Dock="Top"
                     Name="Test"
-                    Height="50"
-                    Background="Beige"
-                    FontSize="27"
+                    Height="{Binding height}"
+                    FontSize="{Binding fontSize}"
                     Text="{Binding tekstSelected}"/>
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
@@ -20,9 +19,8 @@
             </Grid.ColumnDefinitions>
             <TextBox    Grid.Column="0"
                         x:Name="TekstPropRaf"
-                        Height="50"
-                        Background="Beige"
-                        FontSize="27"
+                        Height="{Binding height}"
+                        FontSize="{Binding fontSize}"
                         LostFocus="TekstPropRaf_LostFocus"
                         Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}"/>
             <Button     Grid.Column="1"
@@ -45,6 +43,7 @@
             </Button>
         </Grid>
         <DataGrid   DockPanel.Dock="Top"
+                    FontSize="{Binding fontSize}"
                     Name="DataGridRaf"
                     SelectionMode="Single"
                     Background="LightGreen"
@@ -75,15 +74,12 @@
                 <Style TargetType="DataGrid">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
-
                         <DataTrigger Binding="{Binding ElementName=TekstPropRaf, Path=IsKeyboardFocused}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
-
                         <!--<DataTrigger Binding="{Binding ElementName=TextBoxRaf, Path=IsMouseOver}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>-->
-
                         <DataTrigger Binding="{Binding ElementName=DataGridRaf, Path=IsMouseOver}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>

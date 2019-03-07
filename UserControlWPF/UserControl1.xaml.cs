@@ -129,6 +129,32 @@ namespace UserControlWPF
 
         #endregion
 
+        #region fontSize
+        
+        public int fontSize
+        {
+            get { return (int)GetValue(fontSizeProperty); }
+            set { SetValue(fontSizeProperty, value); }
+        }
+
+        public static readonly DependencyProperty fontSizeProperty =
+            DependencyProperty.Register("fontSize", typeof(int), typeof(UserControl1));
+
+        #endregion
+
+        #region height
+
+        public int height
+        {
+            get { return (int)GetValue(heightProperty); }
+            set { SetValue(heightProperty, value); }
+        }
+        
+        public static readonly DependencyProperty heightProperty =
+            DependencyProperty.Register("height", typeof(int), typeof(UserControl1));
+
+        #endregion
+        
         private void clsValues()
         {
             TekstProp = string.Empty;
