@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserControlWPF"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <DockPanel LastChildFill="False">
         <TextBox    DockPanel.Dock="Top"
                     Name="Test"
@@ -13,12 +13,37 @@
                     Background="Beige"
                     FontSize="27"
                     Text="{Binding tekstSelected}"/>
-        <TextBox    DockPanel.Dock="Top"
-                    Name="TextBoxRaf"
-                    Height="50"
-                    Background="Beige"
-                    FontSize="27"
-                    Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}"/>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="{Binding ElementName=TekstPropRaf, Path=Height}"/>
+            </Grid.ColumnDefinitions>
+            <TextBox    Grid.Column="0"
+                        x:Name="TekstPropRaf"
+                        Height="50"
+                        Background="Beige"
+                        FontSize="27"
+                        LostFocus="TekstPropRaf_LostFocus"
+                        Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button     Grid.Column="1"
+                        x:Name="podmiotDelButton"
+                        Height="{Binding ElementName=TekstPropRaf, Path=Height}"
+                        Content="X"
+                        Foreground="Red"
+                        Background="{Binding ElementName=TekstPropRaf, Path=Background}"
+                        Click="podmiotDelButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Visibility" Value="Visible"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=TekstPropRaf, Path=Text}" Value="">
+                                        <Setter Property="Visibility" Value="Hidden"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+            </Button>
+        </Grid>
         <DataGrid   DockPanel.Dock="Top"
                     Name="DataGridRaf"
                     SelectionMode="Single"
@@ -27,14 +52,14 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding dvSource}"
                     SelectedItem="{Binding selectedRow}"
-                    DisplayMemberPath="name"
                     HeadersVisibility="None"
                     AutoGenerateColumns="False"
                     RowDetailsVisibilityMode="Visible">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding name}"
+                <DataGridTextColumn 
+                                    x:Name="col1"
                                     Width="*"/>
-            </DataGrid.Columns>
+                </DataGrid.Columns>
             
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
@@ -50,8 +75,8 @@
                 <Style TargetType="DataGrid">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
-                        
-                        <DataTrigger Binding="{Binding ElementName=TextBoxRaf, Path=IsKeyboardFocused}" Value="true">
+
+                        <DataTrigger Binding="{Binding ElementName=TekstPropRaf, Path=IsKeyboardFocused}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
 

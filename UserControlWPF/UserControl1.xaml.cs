@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,16 +19,28 @@ using System.Windows.Shapes;
 
 namespace UserControlWPF
 {
-    /// <summary>
-    /// Logika interakcji dla klasy UserControl1.xaml
-    /// </summary>
     public partial class UserControl1 : UserControl
     {
         public UserControl1()
         {
             InitializeComponent();
             DataContext = this;
+
+            //col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
         }
+
+        #region colName
+        
+        public string colName
+        {
+            get { return (string)GetValue(colNameProperty); }
+            set { SetValue(colNameProperty, value); }
+        }
+        
+        public static readonly DependencyProperty colNameProperty =
+            DependencyProperty.Register("colName", typeof(string), typeof(UserControl1));
+        
+        #endregion
 
         #region TekstProp
         //zmienna wyświetlana w teksBox
@@ -44,9 +57,6 @@ namespace UserControlWPF
             UserControl1 u = (UserControl1)d;
             if (u.dvSource != null)
             {
-                //string query = $"name LIKE '%{u.TekstProp}%'";
-                //u.dvSource.RowFilter = query;
-
                 setFilter(u.dvSource, u.TekstProp);
             }
         }
@@ -72,16 +82,8 @@ namespace UserControlWPF
             set { SetValue(dataGridSourceProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for dataGridSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty dataGridSourceProperty =
-            DependencyProperty.Register("dataGridSource", typeof(DataTable), typeof(UserControl1), new PropertyMetadata(null, new PropertyChangedCallback(OnInit)));
-
-        private static void OnInit(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            UserControl1 u = (UserControl1)d;
-            u.dvSource = new DataView(u.dataGridSource);
-            setFilter(u.dvSource, u.TekstProp);
-        }
+            DependencyProperty.Register("dataGridSource", typeof(DataTable), typeof(UserControl1));
         #endregion
 
         #region dvSource
@@ -95,7 +97,7 @@ namespace UserControlWPF
         public static readonly DependencyProperty dvSourceProperty =
             DependencyProperty.Register("dvSource", typeof(DataView), typeof(UserControl1));
         #endregion
-
+    
         #region setFilter
         private static void setFilter(DataView dv, string t)
         {
@@ -118,12 +120,38 @@ namespace UserControlWPF
         private static void OnSelectRow(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             UserControl1 u = (UserControl1)d;
-            //u.dvSource = new DataView(u.dataGridSource);
-            //setFilter(u.dvSource, u.TekstProp);
-            u.tekstSelected = u.selectedRow["name"].ToString();          
+            if (u.selectedRow != null)
+            {
+                u.tekstSelected = u.selectedRow[u.colName].ToString();
+                u.TekstProp = u.selectedRow[u.colName].ToString();
+            }
         }
+
         #endregion
 
+        private void clsValues()
+        {
+            TekstProp = string.Empty;
+            tekstSelected = string.Empty;
+        }
 
+        private void podmiotDelButton_Click(object sender, RoutedEventArgs e)
+        {
+            clsValues();
+        }
+
+        private void TekstPropRaf_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (TekstProp != null)
+                if (dataGridSource.AsEnumerable().Where(row => row.Field<string>(colName).Contains(TekstProp) == true).Count() == 0)
+                    clsValues();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            dvSource = new DataView(dataGridSource);
+            setFilter( dvSource, TekstProp);
+            col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
+        }
     }
 }
