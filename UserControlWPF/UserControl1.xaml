@@ -7,11 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <DockPanel LastChildFill="False">
-        <TextBox    DockPanel.Dock="Top"
+        <!--<TextBox    DockPanel.Dock="Top"
                     Name="Test"
                     Height="{Binding height}"
                     FontSize="{Binding fontSize}"
-                    Text="{Binding tekstSelected}"/>
+                    Text="{Binding tekstSelected}"/>-->
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

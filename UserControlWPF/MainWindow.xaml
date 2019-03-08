@@ -16,7 +16,6 @@
                             fontSize="27"
                             colName="name"
                             dataGridSource="{Binding Source={StaticResource dane}, Path=dtSourceRaf}"/>
-        <Button Height="50"/>
         <TextBox 
                     Text="{Binding ElementName=t1, Path=tekstSelected}"
                     Height="50"

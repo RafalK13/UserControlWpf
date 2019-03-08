@@ -62,16 +62,16 @@ namespace UserControlWPF
         }
         #endregion
 
-        #region tekstSelected
+        #region selectedTekst
 
-        public string tekstSelected
+        public string selectedTekst
         {
-            get { return (string)GetValue(tekstSelectedProperty); }
-            set { SetValue(tekstSelectedProperty, value); }
+            get { return (string)GetValue(selectedTekstProperty); }
+            set { SetValue(selectedTekstProperty, value); }
         }
 
-        public static readonly DependencyProperty tekstSelectedProperty =
-            DependencyProperty.Register("tekstSelected", typeof(string), typeof(UserControl1));
+        public static readonly DependencyProperty selectedTekstProperty =
+            DependencyProperty.Register("selectedTekst", typeof(string), typeof(UserControl1));
 
         #endregion
 
@@ -122,7 +122,7 @@ namespace UserControlWPF
             UserControl1 u = (UserControl1)d;
             if (u.selectedRow != null)
             {
-                u.tekstSelected = u.selectedRow[u.colName].ToString();
+                u.selectedTekst = u.selectedRow[u.colName].ToString();
                 u.TekstProp = u.selectedRow[u.colName].ToString();
             }
         }
@@ -158,7 +158,7 @@ namespace UserControlWPF
         private void clsValues()
         {
             TekstProp = string.Empty;
-            tekstSelected = string.Empty;
+            selectedTekst = string.Empty;
         }
 
         private void podmiotDelButton_Click(object sender, RoutedEventArgs e)
