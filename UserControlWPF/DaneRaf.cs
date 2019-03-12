@@ -22,6 +22,8 @@ namespace UserControlWPF
         public DataTable dtSourceRaf { get; set; }
         public DataView dvSourceRaf { get; set; }
 
+        public string DaneRafTest { get; set; }
+ 
         public DaneRaf()
         {
             init();
@@ -31,9 +33,10 @@ namespace UserControlWPF
         {
             persons = new ObservableCollection<Person>();
             dtSourceRaf = new DataTable();
-            dvSourceRaf = new DataView(dtSourceRaf);
             
             initValues();
+            DaneRafTest = "DaneRafTest13";
+            dvSourceRaf = new DataView(dtSourceRaf);
         }
 
         private void initValues()
@@ -51,7 +54,6 @@ namespace UserControlWPF
 
         private void initDataTable()
         {
-
             dtSourceRaf.Columns.AddRange( new DataColumn[] 
                                         { new DataColumn( "name", typeof(string)),
                                           new DataColumn( "city", typeof(string)),
