@@ -23,7 +23,8 @@ namespace UserControlWPF
         public DataView dvSourceRaf { get; set; }
 
         public string DaneRafTest { get; set; }
- 
+        public string tekst { get; set; }
+
         public DaneRaf()
         {
             init();
@@ -35,7 +36,7 @@ namespace UserControlWPF
             dtSourceRaf = new DataTable();
             
             initValues();
-            DaneRafTest = "DaneRafTest13";
+            tekst = "Class value";
             dvSourceRaf = new DataView(dtSourceRaf);
         }
 

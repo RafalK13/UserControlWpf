@@ -6,15 +6,9 @@
              xmlns:local="clr-namespace:WpfControlLibraryRaf"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid  >
-        
-        <DataGrid  
-                  ScrollViewer.CanContentScroll="True" 
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  MaxHeight="200"
-                  ItemsSource="{Binding dv}"
-               />
-
-    </Grid>
+    <DockPanel LastChildFill="False">
+        <TextBox    DockPanel.Dock="Top"
+                    FontSize="29"
+                    Text="{Binding tekst1}"/>
+    </DockPanel>
 </UserControl>

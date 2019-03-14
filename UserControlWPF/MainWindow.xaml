@@ -6,19 +6,15 @@
         xmlns:local="clr-namespace:UserControlWPF"
         xmlns:controls="clr-namespace:WpfControlLibraryRaf;assembly=WpfControlLibraryRaf"
         mc:Ignorable="d"
+        x:Name="win"
         Title="MainWindow" Height="350" Width="525">
-    <Window.Resources>
-        <local:DaneRaf x:Key="dane"/>
-    </Window.Resources>
-
+   
     <Window.DataContext>
         <local:DaneRaf/>
     </Window.DataContext>
-    <StackPanel>
-        <controls:DataGridRaf dataGridSource="{Binding Source={StaticResource dane}, Path=dtSourceRaf}"
-                              height="30"
+    <StackPanel >
+        <controls:DataGridRaf dataGridSource="{Binding ElementName=win, Path=DataContext.dtSourceRaf}"
                               colName="name"
-                              />
-
+                              height="30"/>
     </StackPanel>
 </Window>

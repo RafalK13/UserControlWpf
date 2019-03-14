@@ -6,21 +6,23 @@
              xmlns:local="clr-namespace:WpfControlLibraryRaf"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel LastChildFill="False">
+    <DockPanel LastChildFill="False" Loaded="DockPanel_Loaded">
+      
         <Grid DockPanel.Dock="Top">
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="45*"/>
+                <ColumnDefinition Width="244*"/>
                 <ColumnDefinition Width="{Binding ElementName=TekstPropRaf, Path=Height}"/>
             </Grid.ColumnDefinitions>
-            
+
             <TextBox    Grid.Column="0"
                         x:Name="TekstPropRaf"
                         Height="{Binding height}"
                         FontSize="{Binding fontSize}"
-                        LostFocus="TekstPropRaf_LostFocus"
-                        GotFocus="TekstPropRaf_GotFocus"
-                        Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button     Grid.Column="1"
+                        Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}" 
+                        LostKeyboardFocus="TekstPropRaf_LostKeyboardFocus" Grid.ColumnSpan="2"/>
+            <Button     Grid.Column="2"
                         x:Name="podmiotDelButton"
                         Height="{Binding ElementName=TekstPropRaf, Path=Height}"
                         Content="X"
@@ -39,7 +41,8 @@
                 </Button.Style>
             </Button>
         </Grid>
-        <DataGrid   DockPanel.Dock="Top"
+        <DataGrid   x:Name="dataGridRaf"
+                    DockPanel.Dock="Top"
                     FontSize="{Binding fontSize}"
                     SelectionMode="Single"
                     CanUserAddRows="False"
@@ -48,8 +51,9 @@
                     SelectedItem="{Binding selectedRow}"
                     HeadersVisibility="None"
                     AutoGenerateColumns="False"
-                    MaxHeight="259"
-                    RowDetailsVisibilityMode="Visible">
+                    Margin="50,0,50,0"
+                    
+                    MaxHeight="259">
             <DataGrid.Columns>
                 <DataGridTextColumn 
                                     x:Name="col1"
@@ -73,9 +77,9 @@
                         <DataTrigger Binding="{Binding ElementName=TekstPropRaf, Path=IsKeyboardFocused}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=TextBoxRaf, Path=IsMouseOver}" Value="true">
+                        <!--<DataTrigger Binding="{Binding ElementName=TextBoxRaf, Path=IsMouseOver}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
+                        </DataTrigger>-->
                         <DataTrigger Binding="{Binding ElementName=DataGridRaf, Path=IsMouseOver}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>

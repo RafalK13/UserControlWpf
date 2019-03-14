@@ -21,12 +21,15 @@ namespace WpfControlLibraryRaf
     /// </summary>
     public partial class DataGridRaf : UserControl
     {
+
+        #region KONSTRUKTOR
         public DataGridRaf()
         {
             InitializeComponent();
             DataContext = this;
-            //col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
+            
         }
+        #endregion
 
         #region colName
 
@@ -40,44 +43,7 @@ namespace WpfControlLibraryRaf
             DependencyProperty.Register("colName", typeof(string), typeof(DataGridRaf));
 
         #endregion
-
-        #region TekstProp
-        public string TekstProp
-        {
-            get { return (string)GetValue(TekstPropProperty); }
-            set { SetValue(TekstPropProperty, value); }
-        }
-        public static readonly DependencyProperty TekstPropProperty =
-            DependencyProperty.Register("TekstProp", typeof(string), typeof(DataGridRaf), new PropertyMetadata ( null, OnTekstPropClick));
-
-        private static void OnTekstPropClick(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            DataGridRaf u = d as DataGridRaf;
-
-            string query = $"{ u.colName} LIKE '%{ u.TekstProp}%'";
-            u.dvSource.RowFilter = query;
-            //u.dataGridSource = new DataTable();
-            //u.dvSource = new DataView( u.dataGridSource);
-            //            setFilter(u.dvSource, u.TekstProp);
-            //u.col1.Binding = new Binding(u.dataGridSource.Columns[u.colName].ColumnName);
-        }
-
-        #endregion
-
-        #region selectedTekst
-
-        public string selectedTekst
-        {
-            get { return (string)GetValue(selectedTekstProperty); }
-            set { SetValue(selectedTekstProperty, value); }
-        }
-
-        public static readonly DependencyProperty selectedTekstProperty =
-            DependencyProperty.Register("selectedTekst", typeof(string), typeof(DataGridRaf));
-
-        #endregion
-
-
+        
         #region dataGridSource
         public DataTable dataGridSource
         {
@@ -108,29 +74,6 @@ namespace WpfControlLibraryRaf
         }
         #endregion
 
-        #region selectedRow
-
-        public DataRowView selectedRow
-        {
-            get { return (DataRowView)GetValue(selectedRowProperty); }
-            set { SetValue(selectedRowProperty, value); }
-        }
-
-        public static readonly DependencyProperty selectedRowProperty =
-            DependencyProperty.Register("selectedRow", typeof(DataRowView), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectRow)));
-
-        private static void OnSelectRow(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            DataGridRaf u = (DataGridRaf)d;
-            if (u.selectedRow != null)
-            {
-                u.selectedTekst = u.selectedRow[u.colName].ToString();
-                u.TekstProp = u.selectedRow[u.colName].ToString();
-            }
-        }
-
-        #endregion
-
         #region fontSize
 
         public int fontSize
@@ -157,29 +100,83 @@ namespace WpfControlLibraryRaf
 
         #endregion
 
-        private void clsValues()
+        #region DockPanel_Loaded
+        private void DockPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            TekstProp = string.Empty;
-            selectedTekst = string.Empty;
+            dvSource = new DataView(dataGridSource);
+            col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
+            setFilter(dvSource, TekstProp);
         }
+        #endregion
 
+        #region podmiotDelButton_Click
         private void podmiotDelButton_Click(object sender, RoutedEventArgs e)
         {
             clsValues();
         }
+        #endregion
 
-        private void TekstPropRaf_LostFocus(object sender, RoutedEventArgs e)
+        #region TekstProp
+        public string TekstProp
         {
-            if (TekstProp != null)
-                if (dataGridSource.AsEnumerable().Where(row => row.Field<string>(colName).Contains(TekstProp) == true).Count() == 0)
-                    clsValues();
+            get { return (string)GetValue(TekstPropProperty); }
+            set { SetValue(TekstPropProperty, value); }
+        }
+        public static readonly DependencyProperty TekstPropProperty =
+            DependencyProperty.Register("TekstProp", typeof(string), typeof(DataGridRaf), new PropertyMetadata(null, OnTekstPropClick));
+
+        private static void OnTekstPropClick(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DataGridRaf u = d as DataGridRaf;
+            string query = $"{ u.colName} LIKE '%{ u.TekstProp}%'";
+            u.dvSource.RowFilter = query;
+            //if (u.dataGridSource.AsEnumerable().Where(row => row.Field<string>(u.colName) == u.TekstProp).Count() == 1)
+            //    u.selectedRow = u.dataGridSource[];
         }
 
-        private void TekstPropRaf_GotFocus(object sender, RoutedEventArgs e)
+        #endregion 
+        
+        #region selectedRow
+
+        public DataRowView selectedRow
         {
-            dvSource = new DataView(dataGridSource);
-            setFilter(dvSource, TekstProp);
-            col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
+            get { return (DataRowView)GetValue(selectedRowProperty); }
+            set { SetValue(selectedRowProperty, value); }
+        }
+
+        public static readonly DependencyProperty selectedRowProperty =
+            DependencyProperty.Register("selectedRow", typeof(DataRowView), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectRow)));
+
+        private static void OnSelectRow(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DataGridRaf u = d as DataGridRaf;
+            if (u.selectedRow != null)
+            {
+                u.TekstProp = u.selectedRow[u.colName].ToString();
+            }
+        }
+        #endregion
+
+        private void clsValues()
+        {
+            TekstProp = string.Empty;
+            selectedRow = null;
+        }
+       
+        private void TekstPropRaf_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (!(e.NewFocus is DataGridCell))
+            {
+                if (selectedRow != null)
+                {
+                    if (selectedRow[colName].ToString() != TekstProp)
+                        clsValues();
+                }
+                else
+                {
+                    clsValues();
+                }
+            }
         }
     }
 }
