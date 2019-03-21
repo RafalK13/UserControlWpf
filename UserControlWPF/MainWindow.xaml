@@ -7,14 +7,31 @@
         xmlns:controls="clr-namespace:WpfControlLibraryRaf;assembly=WpfControlLibraryRaf"
         mc:Ignorable="d"
         x:Name="win"
-        Title="MainWindow" Height="350" Width="525">
-   
+        Title="MainWindow" Height="500" Width="525">
+
     <Window.DataContext>
         <local:DaneRaf/>
     </Window.DataContext>
-    <StackPanel >
-        <controls:DataGridRaf dataGridSource="{Binding ElementName=win, Path=DataContext.dtSourceRaf}"
+
+    <Grid HorizontalAlignment="Stretch">
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Panel.ZIndex="13">
+            <Label x:Name="label" Content="Rafałek"/>
+            <controls:DataGridRaf
+                              Name="moj"
+                              dataGridSource="{Binding ElementName=win, Path=DataContext.dtSourceRaf}"
+                              Width="400"
                               colName="name"
-                              height="30"/>
-    </StackPanel>
+                              height="30"
+                             />
+        </StackPanel>
+
+        <StackPanel Margin="0,50">
+            <TextBox    Height="50" Text="{Binding ElementName=label, Path=Content, Mode=OneWay}" />
+            <Button     
+                    Background="Gold"
+                    Height="50"
+                   />
+        </StackPanel>
+    </Grid>
+
 </Window>

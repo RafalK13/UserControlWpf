@@ -100,12 +100,27 @@ namespace WpfControlLibraryRaf
 
         #endregion
 
+      
+
         #region DockPanel_Loaded
         private void DockPanel_Loaded(object sender, RoutedEventArgs e)
         {
             dvSource = new DataView(dataGridSource);
-            col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
-            setFilter(dvSource, TekstProp);
+
+            try
+            {
+                col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
+            }
+            catch (Exception exp)
+            {
+                string s = "DUPA Blada";
+            }
+            finally
+            {
+                setFilter(dvSource, TekstProp);
+            }
+
+            
         }
         #endregion
 
@@ -153,6 +168,8 @@ namespace WpfControlLibraryRaf
             if (u.selectedRow != null)
             {
                 u.TekstProp = u.selectedRow[u.colName].ToString();
+
+                //MessageBox.Show(u.selectedRow[u.colName].ToString());
             }
         }
         #endregion
