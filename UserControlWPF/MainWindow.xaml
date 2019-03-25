@@ -12,26 +12,82 @@
     <Window.DataContext>
         <local:DaneRaf/>
     </Window.DataContext>
+    
+    <Window.Resources>
+        <controls:DataGridRaf x:Key="controlRaf" />
 
-    <Grid HorizontalAlignment="Stretch">
-        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Panel.ZIndex="13">
-            <Label x:Name="label" Content="Rafałek"/>
-            <controls:DataGridRaf
-                              Name="moj"
-                              dataGridSource="{Binding ElementName=win, Path=DataContext.dtSourceRaf}"
-                              Width="400"
-                              colName="name"
-                              height="30"
-                             />
-        </StackPanel>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="30"/>
+        </Style>
+        
+    </Window.Resources>
 
-        <StackPanel Margin="0,50">
-            <TextBox    Height="50" Text="{Binding ElementName=label, Path=Content, Mode=OneWay}" />
-            <Button     
-                    Background="Gold"
-                    Height="50"
-                   />
-        </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition>
+                <!--<ColumnDefinition.Style>
+                    <Style TargetType="ColumnDefinition">
+                        <Setter Property="ColumnDefinition.IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=tekst1, Path=Text}" Value="x">
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ColumnDefinition.Style>-->
+            </ColumnDefinition>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" HorizontalAlignment="Stretch" Name="gridRaf" Margin="0,-4,0,4">
+            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Panel.ZIndex="13" Name="stackPanelRaf">
+                <controls:DataGridRaf
+                                  Margin="0,10,0,10"
+                                  Name="moj"
+                                  dataGridSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.dtSourceRaf}"
+                                  Width="{Binding ElementName=gridRaf, Path=ActualWidth}"
+                                  
+                                  colName="name"
+                                  fontSize="30" 
+                                  selectedRow="{Binding ElementName=win, Path=DataContext.person}">
+                </controls:DataGridRaf>
+            </StackPanel>
+            <!--dataGridSource="{Binding ElementName=win, Path=DataContext.dtSourceRaf}"-->
+            <StackPanel Margin="0,50" Name="StackPanelRaf">
+                <TextBox  Text="{Binding selectedRow.name}"/>
+                <TextBox  Name="tekst1" Background="Yellow"       Height="50"/>
+                <TextBox  Name="tekst2" Background="LightGreen"   Height="50"/>
+                <TextBox  Name="tekst3" Background="LightPink"    Height="50"/>
+                <TextBox  Text="{Binding person[name], Mode=TwoWay}" Name="tekst"  Background="Green" Height="50"/>
+                <Button   Background="LightBlue"  Height="50" Name="bt"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Name="GridCol1">
+            <StackPanel Orientation="Vertical">
+                <TextBox Background="Aqua"      Text="Tekst1"/>
+                <TextBox Background="Bisque"    Text="Tekst2"/>
+                <TextBox Background="Crimson"   Text="Tekst3"/>
+                <Button  Background="LightBlue"  Height="50"/>
+            </StackPanel>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="IsEnabled" Value="True"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=tekst1, Path=Text}" Value="x">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+        </Grid>
+        <Grid Grid.Column="2" Name="GridCol2" >
+            <StackPanel Orientation="Vertical">
+                <TextBox Background="DodgerBlue"    Text="Tekst1"/>
+                <TextBox Background="LightSkyBlue"  Text="Tekst2"/>
+                <TextBox Background="LightPink"     Text="Tekst3"/>
+                <Button  Background="LightBlue"  Height="50"/>
+            </StackPanel>
+        </Grid>
     </Grid>
-
 </Window>

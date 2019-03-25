@@ -14,13 +14,13 @@
             </Grid.ColumnDefinitions>
             <TextBox    Grid.Column="0" 
                         x:Name="TekstPropRaf"
-                        Height="{Binding height}"
                         FontSize="{Binding fontSize}"
                         Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}" 
                         LostKeyboardFocus="TekstPropRaf_LostKeyboardFocus"/>
             <Button     Grid.Column="1" 
                         x:Name="podmiotDelButton"
-                        Height="{Binding ElementName=TekstPropRaf, Path=Height}"
+                        Height="{Binding ElementName=TekstPropRaf, Path=ActualHeight}"
+                        Width="{Binding RelativeSource={RelativeSource Self}, Path=Height}"
                         Content="X"
                         Foreground="Red"
                         Background="{Binding ElementName=TekstPropRaf, Path=Background}"
@@ -47,7 +47,6 @@
                     SelectedItem="{Binding selectedRow}"
                     HeadersVisibility="None"
                     AutoGenerateColumns="False"
-                    Margin="50,0,50,0"
                     Panel.ZIndex="13"
                     >
             <DataGrid.Columns>
@@ -76,9 +75,9 @@
                         <!--<DataTrigger Binding="{Binding ElementName=TextBoxRaf, Path=IsMouseOver}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>-->
-                        <DataTrigger Binding="{Binding ElementName=DataGridRaf, Path=IsMouseOver}" Value="true">
+                        <!--<DataTrigger Binding="{Binding ElementName=DataGridRaf, Path=IsMouseOver}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
+                        </DataTrigger>-->
 
                     </Style.Triggers>
                 </Style>

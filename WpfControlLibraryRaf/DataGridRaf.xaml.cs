@@ -85,23 +85,8 @@ namespace WpfControlLibraryRaf
         public static readonly DependencyProperty fontSizeProperty =
             DependencyProperty.Register("fontSize", typeof(int), typeof(DataGridRaf));
 
-        #endregion
-
-        #region height
-
-        public int height
-        {
-            get { return (int)GetValue(heightProperty); }
-            set { SetValue(heightProperty, value); }
-        }
-
-        public static readonly DependencyProperty heightProperty =
-            DependencyProperty.Register("height", typeof(int), typeof(DataGridRaf));
-
-        #endregion
-
-      
-
+        #endregion       
+        
         #region DockPanel_Loaded
         private void DockPanel_Loaded(object sender, RoutedEventArgs e)
         {

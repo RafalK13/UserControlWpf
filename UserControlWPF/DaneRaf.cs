@@ -25,6 +25,8 @@ namespace UserControlWPF
         public string DaneRafTest { get; set; }
         public string tekst { get; set; }
 
+        public DataRowView person { get; set; }
+
         public DaneRaf()
         {
             init();
@@ -38,11 +40,13 @@ namespace UserControlWPF
             initValues();
             tekst = "Class value";
             dvSourceRaf = new DataView(dtSourceRaf);
+
+            //person = dvSourceRaf[1];          
         }
 
         private void initValues()
         {
-            initObservableList();
+           // initObservableList();
             initDataTable();
         }
 
