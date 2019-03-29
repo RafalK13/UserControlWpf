@@ -27,25 +27,23 @@ namespace WpfControlLibraryRaf
             DataContext = this;
         }
 
-        public string tekst1
+        public DataTable dataTable
         {
-            get { return (string)GetValue(tekst1Property); }
-            set { SetValue(tekst1Property, value); }
+            get { return (DataTable)GetValue(dataTableProperty); }
+            set { SetValue(dataTableProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for tekst1.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty tekst1Property =
-            DependencyProperty.Register("tekst1", typeof(string), typeof(UserControlRaf1));
+        public static readonly DependencyProperty dataTableProperty =
+            DependencyProperty.Register("dataTable", typeof(DataTable), typeof(UserControlRaf1));
 
-        public string  tekst2
+        public DataRowView dataRowView
         {
-            get { return (string )GetValue(tekst2Property); }
-            set { SetValue(tekst2Property, value); }
+            get { return (DataRowView)GetValue(dataRowViewProperty); }
+            set { SetValue(dataRowViewProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for tekst2.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty tekst2Property =
-            DependencyProperty.Register("tekst2", typeof(string ), typeof(UserControlRaf1), new PropertyMetadata("DependencyProperty value"));
+        public static readonly DependencyProperty dataRowViewProperty =
+            DependencyProperty.Register("dataRowView", typeof(DataRowView), typeof(UserControlRaf1));
 
 
 

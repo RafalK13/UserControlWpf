@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace UserControlWPF
 {
@@ -16,17 +20,63 @@ namespace UserControlWPF
         public int age { get; set; }
     }
 
-    public class DaneRaf
+    public class List
+    {
+        public int id { get; set; }
+    }
+
+    public class DaneRaf : INotifyPropertyChanged
     {
         public ObservableCollection<Person> persons { get; set; }
         public DataTable dtSourceRaf { get; set; }
         public DataView dvSourceRaf { get; set; }
 
+        public DataTable dtSourceList { get; set; }
+
+        private string _selectedItem;
+        public string selectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                _selectedItem = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private DataRowView _drvSelected;
+        public DataRowView drvSelected
+        {
+            get => _drvSelected;
+            set {
+                    _drvSelected = value;
+                    NotifyPropertyChanged();
+            }
+        }
+
         public string DaneRafTest { get; set; }
-        public string tekst { get; set; }
 
-        public DataRowView person { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
+        private string _tekst;
+        public string tekst
+        {
+            get => _tekst;
+            set {
+                _tekst = value;
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string tekstRaf { get; set; }
         public DaneRaf()
         {
             init();
@@ -36,11 +86,11 @@ namespace UserControlWPF
         {
             persons = new ObservableCollection<Person>();
             dtSourceRaf = new DataTable();
-            
+            dtSourceList = new DataTable();
+
             initValues();
             tekst = "Class value";
             dvSourceRaf = new DataView(dtSourceRaf);
-
             //person = dvSourceRaf[1];          
         }
 
@@ -60,23 +110,74 @@ namespace UserControlWPF
         private void initDataTable()
         {
             dtSourceRaf.Columns.AddRange( new DataColumn[] 
-                                        { new DataColumn( "name", typeof(string)),
+                                        {
+                                          new DataColumn( "id", typeof(int)),
+                                          new DataColumn( "name", typeof(string)),
                                           new DataColumn( "city", typeof(string)),
                                           new DataColumn("age", typeof(int)) });
 
-            dtSourceRaf.Rows.Add("Rafał", "Gdańsk", 47);
-            dtSourceRaf.Rows.Add("Rafał1", "Gdańsk", 47);
-            dtSourceRaf.Rows.Add("Rafał2", "Gdańsk", 47);
-            dtSourceRaf.Rows.Add("Rafał3", "Gdańsk", 47);
-            dtSourceRaf.Rows.Add("Hanula", "Gdańsk", 11);
-            dtSourceRaf.Rows.Add("Hanula1", "Gdańsk", 11);
-            dtSourceRaf.Rows.Add("Hanula2", "Gdańsk", 11);
-            dtSourceRaf.Rows.Add("Hanula3", "Gdańsk", 11);
-            dtSourceRaf.Rows.Add("Beti", "Sybir", 48);
-            dtSourceRaf.Rows.Add("Beti1", "Sybir", 48);
-            dtSourceRaf.Rows.Add("Beti2", "Sybir", 48);
-            dtSourceRaf.Rows.Add("Beti3", "Sybir", 48);
+           
+            dtSourceRaf.Rows.Add(1,"Rafał", "Gdańsk", 47);
+            dtSourceRaf.Rows.Add(3,"Rafał1", "Gdańsk", 47);
+            dtSourceRaf.Rows.Add(5,"Rafał2", "Gdańsk", 47);
+            dtSourceRaf.Rows.Add(7,"Rafał3", "Gdańsk", 47);
+            dtSourceRaf.Rows.Add(9,"Hanula", "Gdańsk", 11);
+            dtSourceRaf.Rows.Add(11,"Hanula1", "Gdańsk", 11);
+            dtSourceRaf.Rows.Add(13,"Hanula2", "Gdańsk", 11);
+            dtSourceRaf.Rows.Add(15,"Hanula3", "Gdańsk", 11);
+            dtSourceRaf.Rows.Add(17,"Beti", "Sybir", 48);
+            dtSourceRaf.Rows.Add(19,"Beti1", "Sybir", 48);
+            dtSourceRaf.Rows.Add(21,"Beti2", "Sybir", 48);
+            dtSourceRaf.Rows.Add(23,"Beti3", "Sybir", 48);
 
+            dtSourceList.Columns.AddRange(new DataColumn[]
+                                        { new DataColumn( "id", typeof(int)) });
+
+            
+            dtSourceList.Rows.Add(1);
+            dtSourceList.Rows.Add(3);
+            dtSourceList.Rows.Add(5);
+            dtSourceList.Rows.Add(7);
+            dtSourceList.Rows.Add(9);
+            dtSourceList.Rows.Add(11);
+            dtSourceList.Rows.Add(13);
+            dtSourceList.Rows.Add(15);
+            dtSourceList.Rows.Add(17);
+            dtSourceList.Rows.Add(19);
+            dtSourceList.Rows.Add(21);
+            dtSourceList.Rows.Add(23);
+
+
+
+        }
+    }
+
+    class StringToInt : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int result;
+
+            if (value == null)
+                return 0;
+
+            if (int.TryParse(value.ToString(), out result) == true)
+                return result;
+            else
+                return 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int result;
+
+            if (value == null)
+                return 0;
+
+            if (int.TryParse(value.ToString(), out result) == true)
+                return result;
+            else
+                return 0;
         }
     }
 }

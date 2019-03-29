@@ -12,10 +12,12 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="{Binding ElementName=TekstPropRaf, Path=Height}"/>
             </Grid.ColumnDefinitions>
-            <TextBox    Grid.Column="0" 
+            <TextBox    Margin="0,0,0,0"
+                        Grid.Column="0" 
                         x:Name="TekstPropRaf"
-                        FontSize="{Binding fontSize}"
-                        Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged}" 
+                        FontSize="{Binding fontSizeRaf}"
+                        Height="{Binding heightRaf}"
+                        Text="{Binding TekstProp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                         LostKeyboardFocus="TekstPropRaf_LostKeyboardFocus"/>
             <Button     Grid.Column="1" 
                         x:Name="podmiotDelButton"
@@ -39,13 +41,14 @@
         </Grid>
         <DataGrid   x:Name="dataGridRaf"
                     DockPanel.Dock="Top"
-                    FontSize="{Binding fontSize}"
+                    FontSize="{Binding fontSizeRaf}"
                     SelectionMode="Single"
                     CanUserAddRows="False"
                     IsReadOnly="True"
                     ItemsSource="{Binding dvSource}"
-                    SelectedItem="{Binding selectedRow}"
-                    HeadersVisibility="None"
+                    SelectedItem="{Binding selectedItemRaf}"
+                    SelectedValue="{Binding selectedValueRaf}"
+                    SelectedValuePath="{Binding selectedValuePathRaf}"
                     AutoGenerateColumns="False"
                     Panel.ZIndex="13"
                     >
@@ -55,33 +58,16 @@
                                     Width="*"/>
             </DataGrid.Columns>
 
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="LightGray" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.RowStyle>
-
-            <DataGrid.Style>
+            <!--<DataGrid.Style>
                 <Style TargetType="DataGrid">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=TekstPropRaf, Path=IsKeyboardFocused}" Value="true">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
-                        <!--<DataTrigger Binding="{Binding ElementName=TextBoxRaf, Path=IsMouseOver}" Value="true">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>-->
-                        <!--<DataTrigger Binding="{Binding ElementName=DataGridRaf, Path=IsMouseOver}" Value="true">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>-->
-
                     </Style.Triggers>
                 </Style>
-            </DataGrid.Style>
+            </DataGrid.Style>-->
         </DataGrid>
        
     </DockPanel>

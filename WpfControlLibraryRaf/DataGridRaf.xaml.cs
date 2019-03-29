@@ -43,7 +43,7 @@ namespace WpfControlLibraryRaf
             DependencyProperty.Register("colName", typeof(string), typeof(DataGridRaf));
 
         #endregion
-        
+
         #region dataGridSource
         public DataTable dataGridSource
         {
@@ -74,19 +74,30 @@ namespace WpfControlLibraryRaf
         }
         #endregion
 
-        #region fontSize
+        #region fontSizeRaf
 
-        public int fontSize
+        public int fontSizeRaf
         {
             get { return (int)GetValue(fontSizeProperty); }
             set { SetValue(fontSizeProperty, value); }
         }
 
         public static readonly DependencyProperty fontSizeProperty =
-            DependencyProperty.Register("fontSize", typeof(int), typeof(DataGridRaf));
+            DependencyProperty.Register("fontSizeRaf", typeof(int), typeof(DataGridRaf), new PropertyMetadata(14));
 
         #endregion       
-        
+
+        #region heightRaf
+        public int heightRaf
+        {
+            get { return (int)GetValue(heightRafProperty); }
+            set { SetValue(heightRafProperty, value); }
+        }
+
+        public static readonly DependencyProperty heightRafProperty =
+            DependencyProperty.Register("heightRaf", typeof(int), typeof(DataGridRaf), new PropertyMetadata(25));
+        #endregion
+
         #region DockPanel_Loaded
         private void DockPanel_Loaded(object sender, RoutedEventArgs e)
         {
@@ -117,61 +128,128 @@ namespace WpfControlLibraryRaf
         #endregion
 
         #region TekstProp
+        #region MyRegion
         public string TekstProp
         {
             get { return (string)GetValue(TekstPropProperty); }
             set { SetValue(TekstPropProperty, value); }
         }
         public static readonly DependencyProperty TekstPropProperty =
-            DependencyProperty.Register("TekstProp", typeof(string), typeof(DataGridRaf), new PropertyMetadata(null, OnTekstPropClick));
+            DependencyProperty.Register("TekstProp", typeof(string), typeof(DataGridRaf), new PropertyMetadata(null,  new PropertyChangedCallback( OnTekstPropClick)));
 
+        #endregion
         private static void OnTekstPropClick(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            //MessageBox.Show("OnTekstPropClick");
             DataGridRaf u = d as DataGridRaf;
-            string query = $"{ u.colName} LIKE '%{ u.TekstProp}%'";
-            u.dvSource.RowFilter = query;
-            //if (u.dataGridSource.AsEnumerable().Where(row => row.Field<string>(u.colName) == u.TekstProp).Count() == 1)
-            //    u.selectedRow = u.dataGridSource[];
-        }
-
-        #endregion 
-        
-        #region selectedRow
-
-        public DataRowView selectedRow
-        {
-            get { return (DataRowView)GetValue(selectedRowProperty); }
-            set { SetValue(selectedRowProperty, value); }
-        }
-
-        public static readonly DependencyProperty selectedRowProperty =
-            DependencyProperty.Register("selectedRow", typeof(DataRowView), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectRow)));
-
-        private static void OnSelectRow(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            DataGridRaf u = d as DataGridRaf;
-            if (u.selectedRow != null)
+  
+            if (u.TekstProp != null)
             {
-                u.TekstProp = u.selectedRow[u.colName].ToString();
-
-                //MessageBox.Show(u.selectedRow[u.colName].ToString());
+                string query = $"{ u.colName} LIKE '%{ u.TekstProp}%'";
+                u.dvSource.RowFilter = query;
             }
         }
         #endregion
 
-        private void clsValues()
+        #region selectedItemRaf
+        #region MyRegion
+
+        public DataRowView selectedItemRaf
+        {
+            get { return (DataRowView)GetValue(selectedItemRafProperty); }
+            set { SetValue(selectedItemRafProperty, value); }
+        }
+
+        public static readonly DependencyProperty selectedItemRafProperty =
+            DependencyProperty.Register("selectedItemRaf", typeof(DataRowView), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedItemRaf)));
+
+        #endregion
+        private static void OnSelectedItemRaf(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DataGridRaf u = d as DataGridRaf;
+            if (u.selectedItemRaf != null)
+                u.TekstProp = u.selectedItemRaf[u.colName].ToString();
+        }
+        #endregion
+
+        #region selectedValueRaf
+        #region MyRegion
+        public object selectedValueRaf
+        {
+            get { return (object)GetValue(selectedValueRafProperty); }
+            set { SetValue(selectedValueRafProperty, value); }
+        }
+        
+        public static readonly DependencyProperty selectedValueRafProperty =
+            DependencyProperty.Register("selectedValueRaf", typeof(object), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(onChangeSelectedValue), new CoerceValueCallback(OnCoerceValue)));
+
+        #endregion
+
+        private static object OnCoerceValue(DependencyObject d, object baseValue)
+        {
+           
+            
+            
+            //string s = string.Empty;
+            //if (u.selectedValueRaf != null)
+            //{
+            //    s = u.selectedValueRaf.ToString();
+            //    MessageBox.Show($"Coerce:{s}");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Coerce No value");
+            //}
+
+            return baseValue;
+        }
+
+        private static void onChangeSelectedValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DataGridRaf u = d as DataGridRaf;
+
+            if (u.selectedValueRaf != null)
+            {
+                int row = int.Parse(u.selectedValueRaf.ToString());
+
+                if (row > 0)
+                {
+                    u.selectedItemRaf = u.dataGridSource.DefaultView.Cast<DataRowView>().Where(r => r["id"].ToString() == row.ToString()).FirstOrDefault();
+                    int a = 13;
+                    //MessageBox.Show( row.ToString());
+                    //var v = u.dataGridSource.AsEnumerable().FirstOrDefault(r => r["id"].ToString() == row.ToString());
+
+                    //if (v != null)
+                    //    u.selectedItemRaf = v.Table.DefaultView[0];
+                }
+            }
+        }
+
+        #endregion
+
+        #region selectedValuePathRaf
+        public string selectedValuePathRaf
+        {
+            get { return (string)GetValue(selectedValuePathRafProperty); }
+            set { SetValue(selectedValuePathRafProperty, value); }
+        }
+        public static readonly DependencyProperty selectedValuePathRafProperty =
+            DependencyProperty.Register("selectedValuePathRaf", typeof(string), typeof(DataGridRaf));
+        #endregion
+
+        public void clsValues()
         {
             TekstProp = string.Empty;
-            selectedRow = null;
-        }
-       
+            selectedItemRaf = null;
+            
+        }       
         private void TekstPropRaf_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (!(e.NewFocus is DataGridCell))
             {
-                if (selectedRow != null)
+                if (selectedItemRaf != null)
                 {
-                    if (selectedRow[colName].ToString() != TekstProp)
+                    if (selectedItemRaf[colName].ToString() != TekstProp)
                         clsValues();
                 }
                 else
@@ -180,5 +258,6 @@ namespace WpfControlLibraryRaf
                 }
             }
         }
+        
     }
 }
