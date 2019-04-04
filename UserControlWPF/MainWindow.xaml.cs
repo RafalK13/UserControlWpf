@@ -34,14 +34,7 @@ namespace UserControlWPF
             //FindLogicalTree(this);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            DaneRaf klasa = button.DataContext as DaneRaf;
-            klasa.drvSelected = null;
-            //MessageBox.Show( klasa.drvSelected[0].ToString() );
-        }
-
+       
 
         //private void FindLogicalTree(DependencyObject parent)
         //{

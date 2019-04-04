@@ -58,7 +58,7 @@
                                     Width="*"/>
             </DataGrid.Columns>
 
-            <!--<DataGrid.Style>
+            <DataGrid.Style>
                 <Style TargetType="DataGrid">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
@@ -67,7 +67,7 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </DataGrid.Style>-->
+            </DataGrid.Style>
         </DataGrid>
        
     </DockPanel>

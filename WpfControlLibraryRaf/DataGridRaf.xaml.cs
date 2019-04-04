@@ -27,7 +27,6 @@ namespace WpfControlLibraryRaf
         {
             InitializeComponent();
             DataContext = this;
-            
         }
         #endregion
 
@@ -115,8 +114,6 @@ namespace WpfControlLibraryRaf
             {
                 setFilter(dvSource, TekstProp);
             }
-
-            
         }
         #endregion
 
@@ -135,18 +132,23 @@ namespace WpfControlLibraryRaf
             set { SetValue(TekstPropProperty, value); }
         }
         public static readonly DependencyProperty TekstPropProperty =
-            DependencyProperty.Register("TekstProp", typeof(string), typeof(DataGridRaf), new PropertyMetadata(null,  new PropertyChangedCallback( OnTekstPropClick)));
+            DependencyProperty.Register("TekstProp", typeof(string), typeof(DataGridRaf), new PropertyMetadata(null,  new PropertyChangedCallback( OnTekstPropChanged)));
 
         #endregion
-        private static void OnTekstPropClick(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnTekstPropChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //MessageBox.Show("OnTekstPropClick");
+            //int a = 1;
+
+            //MessageBox.Show("OnTekstPropChanged");
+
             DataGridRaf u = d as DataGridRaf;
-  
             if (u.TekstProp != null)
             {
-                string query = $"{ u.colName} LIKE '%{ u.TekstProp}%'";
-                u.dvSource.RowFilter = query;
+                if (u.dvSource != null)
+                {
+                    string query = $"{ u.colName} LIKE '%{ u.TekstProp}%'";
+                    u.dvSource.RowFilter = query;
+                }
             }
         }
         #endregion
@@ -164,11 +166,24 @@ namespace WpfControlLibraryRaf
             DependencyProperty.Register("selectedItemRaf", typeof(DataRowView), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedItemRaf)));
 
         #endregion
+        private static object OnCoerceSelectedItemRaf(DependencyObject d, object baseValue)
+        {
+            //MessageBox.Show("OnCoerceSelectedItemRaf");
+            return baseValue;
+        }
+
         private static void OnSelectedItemRaf(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DataGridRaf u = d as DataGridRaf;
-            if (u.selectedItemRaf != null)
-                u.TekstProp = u.selectedItemRaf[u.colName].ToString();
+            //int a = 1;
+            //MessageBox.Show("OnSelectedItemRaf");
+            //DataGridRaf u = d as DataGridRaf;
+
+            //if (u.selectedItemRaf != null)
+            //{
+            //    //var v = u.dataGridSource.AsEnumerable().Where(r => r["id"].ToString() == result.ToString()).FirstOrDefault())
+            //        u.TekstProp = u.selectedItemRaf[u.colName].ToString();
+            //}
+
         }
         #endregion
 
@@ -181,68 +196,110 @@ namespace WpfControlLibraryRaf
         }
         
         public static readonly DependencyProperty selectedValueRafProperty =
-            DependencyProperty.Register("selectedValueRaf", typeof(object), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(onChangeSelectedValue), new CoerceValueCallback(OnCoerceValue)));
+            DependencyProperty.Register("selectedValueRaf", typeof(object), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedValue), new CoerceValueCallback( OnCoerceValueRaf)));
 
         #endregion
-
-        private static object OnCoerceValue(DependencyObject d, object baseValue)
+        private static object OnCoerceValueRaf(DependencyObject d, object baseValue)
         {
-           
-            
-            
-            //string s = string.Empty;
-            //if (u.selectedValueRaf != null)
+            //MessageBox.Show( $"OnCoerceValueRaf, baseValue: {baseValue.ToString()}");
+            //DataGridRaf u = d as DataGridRaf;
+            //int result;
+
+            //if (int.TryParse(baseValue.ToString().ToString(), out result) == true)
             //{
-            //    s = u.selectedValueRaf.ToString();
-            //    MessageBox.Show($"Coerce:{s}");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Coerce No value");
+            //    u.selectedItemRaf = u.dataGridSource.DefaultView.Cast<DataRowView>().Where(r => r["id"].ToString() == result.ToString()).FirstOrDefault();
             //}
 
             return baseValue;
+            
+            //DataGridRaf u = d as DataGridRaf;
+            //int result;
+            //if (baseValue != null)
+            //{
+            //    if (int.TryParse(baseValue.ToString().ToString(), out result) == true)
+            //    {
+            //        if (result == 0)
+            //        {
+            //            u.selectedItemRaf = null;
+            //            u.TekstProp = string.Empty;
+            //        }
+            //        else
+            //        {
+            //            u.selectedItemRaf = u.dataGridSource.DefaultView.Cast<DataRowView>().Where(r => r["id"].ToString() == result.ToString()).FirstOrDefault();
+            //            if (u.selectedItemRaf == null)
+            //            {
+            //                u.TekstProp = null;
+            //            }
+            //        }
+            //    }
+            //}
+
+            //return baseValue;
         }
 
-        private static void onChangeSelectedValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSelectedValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DataGridRaf u = d as DataGridRaf;
+            int result;
 
             if (u.selectedValueRaf != null)
             {
-                int row = int.Parse(u.selectedValueRaf.ToString());
-
-                if (row > 0)
+                if (Convert.IsDBNull(u.selectedValueRaf))
                 {
-                    u.selectedItemRaf = u.dataGridSource.DefaultView.Cast<DataRowView>().Where(r => r["id"].ToString() == row.ToString()).FirstOrDefault();
-                    int a = 13;
-                    //MessageBox.Show( row.ToString());
-                    //var v = u.dataGridSource.AsEnumerable().FirstOrDefault(r => r["id"].ToString() == row.ToString());
-
-                    //if (v != null)
-                    //    u.selectedItemRaf = v.Table.DefaultView[0];
+                    u.selectedItemRaf = null;
+                    u.TekstProp = string.Empty;
                 }
+                else
+                {
+                    int.TryParse(u.selectedValueRaf.ToString().ToString(), out result);
+
+                    if (result == 0)
+                    {
+                        u.selectedItemRaf = null;
+                        u.TekstProp = string.Empty;
+                    }
+                    else
+                    {
+                        u.selectedItemRaf = u.dataGridSource.DefaultView.Cast<DataRowView>().Where(r => r["ID"].ToString() == result.ToString()).FirstOrDefault();
+
+                        if (u.selectedItemRaf == null)
+                        {
+                            u.TekstProp = string.Empty;
+                        }
+                        else
+                        {
+                            
+                            u.TekstProp = u.selectedItemRaf[u.colName].ToString();
+                        }
+                    }
+                }
+                
             }
         }
-
         #endregion
 
         #region selectedValuePathRaf
+        #region MyRegion
         public string selectedValuePathRaf
         {
             get { return (string)GetValue(selectedValuePathRafProperty); }
             set { SetValue(selectedValuePathRafProperty, value); }
         }
+
         public static readonly DependencyProperty selectedValuePathRafProperty =
-            DependencyProperty.Register("selectedValuePathRaf", typeof(string), typeof(DataGridRaf));
+           DependencyProperty.Register("selectedValuePathRaf", typeof(string), typeof(DataGridRaf), new PropertyMetadata("ID"));
+        #endregion
+
         #endregion
 
         public void clsValues()
         {
             TekstProp = string.Empty;
             selectedItemRaf = null;
+            selectedValueRaf = 0;
             
         }       
+
         private void TekstPropRaf_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (!(e.NewFocus is DataGridCell))
@@ -258,6 +315,5 @@ namespace WpfControlLibraryRaf
                 }
             }
         }
-        
     }
 }

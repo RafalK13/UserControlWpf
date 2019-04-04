@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:WpfControlLibraryRaf;assembly=WpfControlLibraryRaf"
         mc:Ignorable="d"
         x:Name="win"
-        Title="MainWindow" Height="612" Width="314">
+        Title="MainWindow" Height="757" Width="324">
 
     <Window.DataContext>
         <local:DaneRaf/>
@@ -27,10 +27,10 @@
     <StackPanel Orientation="Vertical">
 
         <TextBox Height="50"
-                Text="{Binding selectedItem}"/>
-
+                 Name="numer"/>
+        <!--
         <TextBox Height="50"
-                 Text="{Binding ElementName=controlRaf, Path=selectedValueRaf}"/>
+                 Text="{Binding ElementName=controlRaf, Path=selectedValueRaf}"/>-->
 
         <DataGrid   Name="d"
                     ItemsSource="{Binding dtSourceList}"
@@ -43,10 +43,10 @@
                                     Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-   
+
         <controls:DataGridRaf   Name="controlRaf" 
                                 dataGridSource="{Binding Path=DataContext.dtSourceRaf, ElementName=win}"
-                                selectedValueRaf="{Binding Path=DataContext.selectedItem,  ElementName=win, Converter={StaticResource convStrToInt}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                selectedValueRaf="{Binding Path=Text,  ElementName=numer, Converter={StaticResource convStrToInt}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 selectedValuePathRaf="id"
                                 colName="name" Height="321" 
                                 />
@@ -67,7 +67,7 @@
                   SelectedValuePath="age"
                   
                   />-->
-
+        
         <!--selectedValueRaf="{Binding ElementName=ID, Path=Text, Converter={StaticResource convStrToInt}}"-->
 
 
