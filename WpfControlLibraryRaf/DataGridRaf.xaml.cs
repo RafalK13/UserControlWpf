@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +15,32 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace WpfControlLibraryRaf
 {
-    /// <summary>
-    /// Logika interakcji dla klasy DataGridRaf.xaml
-    /// </summary>
+
+    public class NumberRows : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int result;
+
+            if (value == null)
+                return 0;
+
+            if (int.TryParse(value.ToString(), out result) == true)
+                return result * 13;
+            else
+                return 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
     public partial class DataGridRaf : UserControl
     {
 
@@ -315,5 +337,6 @@ namespace WpfControlLibraryRaf
                 }
             }
         }
+
     }
 }

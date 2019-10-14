@@ -18,6 +18,13 @@ namespace UserControlWPF
         public string name { get; set; }
         public string city { get; set; }
         public int age { get; set; }
+
+        public Person( string n, string c, int a)
+        {
+            name = n;
+            city = c;
+            age = a;
+        }
     }
 
     public class List
@@ -77,6 +84,9 @@ namespace UserControlWPF
         }
 
         public string tekstRaf { get; set; }
+
+        public List<Person> personsList { get; set; }
+
         public DaneRaf()
         {
             init();
@@ -91,7 +101,20 @@ namespace UserControlWPF
             initValues();
             tekst = "Class value";
             dvSourceRaf = new DataView(dtSourceRaf);
-            //person = dvSourceRaf[1];          
+            personsList = new List<Person>();
+                 personsList.Add(new Person("Rafał", "Gdańsk", 47));
+                 personsList.Add(new Person("Rafał1", "Gdańsk", 47));
+                 personsList.Add( new Person( "Rafał2", "Gdańsk", 47));
+                 personsList.Add( new Person( "Rafał3", "Gdańsk", 47));
+                 personsList.Add( new Person( "Rafał4", "Gdańsk", 47));
+                 personsList.Add( new Person( "Rafał5", "Gdańsk", 47));
+                 personsList.Add( new Person( "Rafał6", "Gdańsk", 47));
+                 personsList.Add( new Person( "Hanula", "Gdańsk", 11));
+                 personsList.Add( new Person( "Hanula1", "Gdańsk", 11));
+                 personsList.Add( new Person( "Hanula2", "Gdańsk", 11));
+                 personsList.Add( new Person( "Hanula3", "Gdańsk", 11));
+                 personsList.Add( new Person( "Beti", "Sybir", 48));
+                 personsList.Add( new Person( "Beti1", "Sybir", 48));
         }
 
         private void initValues()
@@ -102,9 +125,9 @@ namespace UserControlWPF
 
         private void initObservableList()
         {
-            persons.Add(new Person() { name = "Rafałek", city = "Gdańsk", age = 47 });
-            persons.Add(new Person() { name = "Hanka", city = "Gdańsk", age = 11 });
-            persons.Add(new Person() { name = "Beti", city = "Sybir", age = 48 });
+            //persons.Add(new Person() { name = "Rafałek", city = "Gdańsk", age = 47 });
+            //persons.Add(new Person() { name = "Hanka", city = "Gdańsk", age = 11 });
+            //persons.Add(new Person() { name = "Beti", city = "Sybir", age = 48 });
         }
 
         private void initDataTable()
@@ -186,6 +209,28 @@ namespace UserControlWPF
             //    return result;
             //else
             //    return 0;
+        }
+    }
+
+    class NumberRows : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int result;
+
+            if (value == null)
+                return 0;
+
+            if (int.TryParse(value.ToString(), out result) == true)
+                return result*10;
+            else
+                return 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+          
         }
     }
 }

@@ -15,7 +15,7 @@
 
     <Window.Resources>
         <local:StringToInt x:Key="convStrToInt"/>
-
+        <local:NumberRows x:Key="numberRows"/>
         <controls:DataGridRaf x:Key="controlRaf" />
         <controls:UserControlRaf1 x:Key="UserRaf1"/>
         <local:DaneRaf x:Key="daneRaf" />
@@ -26,21 +26,20 @@
 
     <StackPanel Orientation="Vertical">
 
-        <TextBox Height="50"
-                 Name="numer"/>
-        <!--
-        <TextBox Height="50"
-                 Text="{Binding ElementName=controlRaf, Path=selectedValueRaf}"/>-->
-
-        <DataGrid   Name="d"
-                    ItemsSource="{Binding dtSourceList}"
-                    SelectedValue="{Binding selectedItem}"
-                    SelectedValuePath="id"
-                    HeadersVisibility="None"
-                    AutoGenerateColumns="False">
+        <DataGrid
+                  Name="dg"
+                  ItemsSource="{Binding personsList}"
+                  AutoGenerateColumns="False"
+                  RowHeight="20"
+                  
+                  HeadersVisibility="None"
+                
+                  >
+            <!--MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=Height, Converter={StaticResource numberRows}}"-->
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding id}"
-                                    Width="*"/>
+                <DataGridTextColumn Binding="{Binding name}" Width="*"/>
+                <DataGridTextColumn Binding="{Binding city}" Width="*"/>
+                <DataGridTextColumn Binding="{Binding age}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

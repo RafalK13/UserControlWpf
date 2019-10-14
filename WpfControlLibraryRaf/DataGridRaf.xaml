@@ -6,6 +6,10 @@
              xmlns:local="clr-namespace:WpfControlLibraryRaf"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <local:NumberRows x:Key="numberRows"/>
+    </UserControl.Resources>
+
     <DockPanel LastChildFill="False" Loaded="DockPanel_Loaded">
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
@@ -51,7 +55,11 @@
                     SelectedValuePath="{Binding selectedValuePathRaf}"
                     AutoGenerateColumns="False"
                     Panel.ZIndex="13"
+                    HeadersVisibility="None"
+                    RowHeight="20"
+                    MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=RowHeight, Converter={StaticResource numberRows}}"
                     >
+            <!--MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=RowHeight, Converter={StaticResource numberRows}}"-->
             <DataGrid.Columns>
                 <DataGridTextColumn 
                                     x:Name="col1"
