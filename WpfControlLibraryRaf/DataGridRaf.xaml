@@ -10,7 +10,7 @@
         <local:NumberRows x:Key="numberRows"/>
     </UserControl.Resources>
 
-    <DockPanel LastChildFill="False" Loaded="DockPanel_Loaded">
+    <DockPanel LastChildFill="False">
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

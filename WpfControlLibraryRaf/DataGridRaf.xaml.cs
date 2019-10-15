@@ -92,14 +92,6 @@ namespace WpfControlLibraryRaf
             DependencyProperty.Register("dvSource", typeof(DataView), typeof(DataGridRaf));
         #endregion
 
-        #region setFilter
-        private void setFilter(DataView dv, string t)
-        {
-            //string query = $"{ colName} LIKE '%{t}%'";
-            //dv.RowFilter = query;
-        }
-        #endregion
-
         #region fontSizeRaf
 
         public int fontSizeRaf
@@ -122,26 +114,6 @@ namespace WpfControlLibraryRaf
 
         public static readonly DependencyProperty heightRafProperty =
             DependencyProperty.Register("heightRaf", typeof(int), typeof(DataGridRaf), new PropertyMetadata(25));
-        #endregion
-
-        #region DockPanel_Loaded
-        private void DockPanel_Loaded(object sender, RoutedEventArgs e)
-        {
-            //podmiotListView = podmiotList;
-            //dvSource = new DataView(dataGridSource);
-            //try
-            //{
-            //    //col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
-            //}
-            //catch (Exception exp)
-            //{
-            //    string s = "DUPA Blada";
-            //}
-            //finally
-            //{
-            //    setFilter(dvSource, TekstProp);
-            //}
-        }
         #endregion
 
         #region podmiotDelButton_Click
@@ -172,22 +144,10 @@ namespace WpfControlLibraryRaf
                     u.podmiotListView = u.podmiotList.Where( r=> r.nazwa.Contains(u.TekstProp) == true).ToList();
                 }
             }
-
-            //DataGridRaf u = d as DataGridRaf;
-            //if (u.TekstProp != null)
-            //{
-            //    if (u.dvSource != null)
-            //    {
-            //        //string query = $"{ u.colName} LIKE '%{ u.TekstProp}%'";
-            //        //u.dvSource.RowFilter = query;
-            //    }
-            //}
         }
         #endregion
 
         #region selectedItemRaf
-        #region MyRegion
-
         public Podmiot selectedItemRaf
         {
             get { return (Podmiot)GetValue(selectedItemRafProperty); }
@@ -195,17 +155,8 @@ namespace WpfControlLibraryRaf
         }
 
         public static readonly DependencyProperty selectedItemRafProperty =
-            DependencyProperty.Register("selectedItemRaf", typeof(Podmiot), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedItemRaf)));
+            DependencyProperty.Register("selectedItemRaf", typeof(Podmiot), typeof(DataGridRaf));
 
-        #endregion
-        private static object OnCoerceSelectedItemRaf(DependencyObject d, object baseValue)
-        {
-            return baseValue;
-        }
-
-        private static void OnSelectedItemRaf(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-        }
         #endregion
 
         #region selectedValueRaf
@@ -304,6 +255,5 @@ namespace WpfControlLibraryRaf
                 }
             }
         }
-
     }
 }
