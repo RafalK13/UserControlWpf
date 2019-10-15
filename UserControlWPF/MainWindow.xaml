@@ -27,7 +27,7 @@
     <StackPanel Orientation="Vertical">
         <controls:DataGridRaf   Name="controlRaf" 
                                 podmiotList="{Binding Path=DataContext.podmiotList, ElementName=win}"
-                                selectedValueRaf="{Binding Path=Text,  ElementName=numer, Converter={StaticResource convStrToInt}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                
                                 selectedValuePathRaf="id"
                                 Height="321" 
                                 />

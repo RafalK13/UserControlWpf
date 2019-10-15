@@ -49,7 +49,7 @@
                     SelectionMode="Single"
                     CanUserAddRows="False"
                     IsReadOnly="True"
-                    ItemsSource="{Binding podmiotList}"
+                    ItemsSource="{Binding podmiotListView}"
                     SelectedItem="{Binding selectedItemRaf}"
                     SelectedValue="{Binding selectedValueRaf}"
                     SelectedValuePath="{Binding selectedValuePathRaf}"
