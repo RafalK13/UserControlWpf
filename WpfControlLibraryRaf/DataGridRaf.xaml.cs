@@ -40,6 +40,12 @@ namespace WpfControlLibraryRaf
         }
     }
 
+    public class Podmiot
+    {
+        public int id { get; set; }
+        public string nazwa { get; set; }
+    }
+
 
     public partial class DataGridRaf : UserControl
     {
@@ -52,20 +58,20 @@ namespace WpfControlLibraryRaf
         }
         #endregion
 
-        #region colName
 
-        public string colName
+        public List<Podmiot> podmiotList
         {
-            get { return (string)GetValue(colNameProperty); }
-            set { SetValue(colNameProperty, value); }
+            get { return (List<Podmiot>)GetValue(podmiotListProperty); }
+            set { SetValue(podmiotListProperty, value); }
         }
 
-        public static readonly DependencyProperty colNameProperty =
-            DependencyProperty.Register("colName", typeof(string), typeof(DataGridRaf));
+        public static readonly DependencyProperty podmiotListProperty =
+            DependencyProperty.Register("podmiotList", typeof(List<Podmiot>), typeof(DataGridRaf));
 
-        #endregion
 
-        #region dataGridSource
+        
+
+        #region DataTableGridSource
         public DataTable dataGridSource
         {
             get { return (DataTable)GetValue(dataGridSourceProperty); }
@@ -76,7 +82,7 @@ namespace WpfControlLibraryRaf
             DependencyProperty.Register("dataGridSource", typeof(DataTable), typeof(DataGridRaf));
         #endregion
 
-        #region dvSource
+        #region DataViewdvSource
         public DataView dvSource
         {
             get { return (DataView)GetValue(dvSourceProperty); }
@@ -90,8 +96,8 @@ namespace WpfControlLibraryRaf
         #region setFilter
         private void setFilter(DataView dv, string t)
         {
-            string query = $"{ colName} LIKE '%{t}%'";
-            dv.RowFilter = query;
+            //string query = $"{ colName} LIKE '%{t}%'";
+            //dv.RowFilter = query;
         }
         #endregion
 
@@ -126,7 +132,7 @@ namespace WpfControlLibraryRaf
 
             try
             {
-                col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
+                //col1.Binding = new Binding(dataGridSource.Columns[colName].ColumnName);
             }
             catch (Exception exp)
             {
@@ -159,17 +165,14 @@ namespace WpfControlLibraryRaf
         #endregion
         private static void OnTekstPropChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //int a = 1;
-
-            //MessageBox.Show("OnTekstPropChanged");
 
             DataGridRaf u = d as DataGridRaf;
             if (u.TekstProp != null)
             {
                 if (u.dvSource != null)
                 {
-                    string query = $"{ u.colName} LIKE '%{ u.TekstProp}%'";
-                    u.dvSource.RowFilter = query;
+                    //string query = $"{ u.colName} LIKE '%{ u.TekstProp}%'";
+                    //u.dvSource.RowFilter = query;
                 }
             }
         }
@@ -190,7 +193,6 @@ namespace WpfControlLibraryRaf
         #endregion
         private static object OnCoerceSelectedItemRaf(DependencyObject d, object baseValue)
         {
-            //MessageBox.Show("OnCoerceSelectedItemRaf");
             return baseValue;
         }
 
@@ -223,40 +225,7 @@ namespace WpfControlLibraryRaf
         #endregion
         private static object OnCoerceValueRaf(DependencyObject d, object baseValue)
         {
-            //MessageBox.Show( $"OnCoerceValueRaf, baseValue: {baseValue.ToString()}");
-            //DataGridRaf u = d as DataGridRaf;
-            //int result;
-
-            //if (int.TryParse(baseValue.ToString().ToString(), out result) == true)
-            //{
-            //    u.selectedItemRaf = u.dataGridSource.DefaultView.Cast<DataRowView>().Where(r => r["id"].ToString() == result.ToString()).FirstOrDefault();
-            //}
-
             return baseValue;
-            
-            //DataGridRaf u = d as DataGridRaf;
-            //int result;
-            //if (baseValue != null)
-            //{
-            //    if (int.TryParse(baseValue.ToString().ToString(), out result) == true)
-            //    {
-            //        if (result == 0)
-            //        {
-            //            u.selectedItemRaf = null;
-            //            u.TekstProp = string.Empty;
-            //        }
-            //        else
-            //        {
-            //            u.selectedItemRaf = u.dataGridSource.DefaultView.Cast<DataRowView>().Where(r => r["id"].ToString() == result.ToString()).FirstOrDefault();
-            //            if (u.selectedItemRaf == null)
-            //            {
-            //                u.TekstProp = null;
-            //            }
-            //        }
-            //    }
-            //}
-
-            //return baseValue;
         }
 
         private static void OnSelectedValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -291,7 +260,7 @@ namespace WpfControlLibraryRaf
                         else
                         {
                             
-                            u.TekstProp = u.selectedItemRaf[u.colName].ToString();
+                            //u.TekstProp = u.selectedItemRaf[u.colName].ToString();
                         }
                     }
                 }
@@ -328,8 +297,8 @@ namespace WpfControlLibraryRaf
             {
                 if (selectedItemRaf != null)
                 {
-                    if (selectedItemRaf[colName].ToString() != TekstProp)
-                        clsValues();
+                    //if (selectedItemRaf[colName].ToString() != TekstProp)
+                    //    clsValues();
                 }
                 else
                 {

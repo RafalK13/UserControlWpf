@@ -25,67 +25,11 @@
     </Window.Resources>
 
     <StackPanel Orientation="Vertical">
-
-        <DataGrid
-                  Name="dg"
-                  ItemsSource="{Binding personsList}"
-                  AutoGenerateColumns="False"
-                  RowHeight="20"
-                  
-                  HeadersVisibility="None"
-                
-                  >
-            <!--MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=Height, Converter={StaticResource numberRows}}"-->
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding name}" Width="*"/>
-                <DataGridTextColumn Binding="{Binding city}" Width="*"/>
-                <DataGridTextColumn Binding="{Binding age}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
         <controls:DataGridRaf   Name="controlRaf" 
-                                dataGridSource="{Binding Path=DataContext.dtSourceRaf, ElementName=win}"
+                                podmiotList="{Binding Path=DataContext.podmiotList, ElementName=win}"
                                 selectedValueRaf="{Binding Path=Text,  ElementName=numer, Converter={StaticResource convStrToInt}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 selectedValuePathRaf="id"
-                                colName="name" Height="321" 
+                                Height="321" 
                                 />
-
-        <!--<controls:UserControl3 tekstUserRaf="{Binding ElementName=t1, Path=Text, Mode=TwoWay}"/>
-        <TextBox Name="t1" Height="50" Background="Aquamarine"/>-->
-
-        <!--<TextBox    Background="LightPink"   
-                    Height="50"
-                    Text="{Binding ElementName=controlRaf, Path=selectedValueRaf}"/>
-        <TextBox    Background="Bisque"
-                    Height="50"
-                    Text="{Binding tekst, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Name="ID"/>
-
-        <DataGrid ItemsSource="{Binding Path=DataContext.dtSourceRaf, ElementName=win}"
-                  SelectedValue="{Binding tekst, Converter={StaticResource convStrToInt}}"
-                  SelectedValuePath="age"
-                  
-                  />-->
-        
-        <!--selectedValueRaf="{Binding ElementName=ID, Path=Text, Converter={StaticResource convStrToInt}}"-->
-
-
-        <!--<DataGrid ItemsSource="{Binding Path=DataContext.dtSourceRaf, ElementName=win}"/>-->
-
-        <!--<TextBox Margin="0,0,0,0"   Text="{Binding drvSelected[0]}" VerticalAlignment="Top"/>
-        <Button Margin="0,50,0,0"   Height="50" Width="200" VerticalAlignment="Top" Click="Button_Click"/>
-        <controls:UserControlRaf1   Margin="0,110,0,0"
-                                    VerticalAlignment="Top"
-                                    x:Name="control1Raf"
-                                    dataRowView="{Binding ElementName=win, Path=DataContext.drvSelected, Mode=TwoWay}"
-                                    dataTable="{Binding ElementName=win, Path=DataContext.dtSourceRaf}" 
-                                    />-->
-
-
-        <!--<TextBox Margin="0,0,0,0" Text="{Binding tekst}" VerticalAlignment="Top"/>
-        <TextBox Margin="0,50,0,0" Text="{Binding drvSelected[0]}" VerticalAlignment="Top"/>-->
-        <!--dataRowView="{Binding drvSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        dataTable="{Binding dtSourceRaf}" 
-                                        />-->
     </StackPanel>
 </Window>

@@ -49,7 +49,7 @@
                     SelectionMode="Single"
                     CanUserAddRows="False"
                     IsReadOnly="True"
-                    ItemsSource="{Binding dvSource}"
+                    ItemsSource="{Binding podmiotList}"
                     SelectedItem="{Binding selectedItemRaf}"
                     SelectedValue="{Binding selectedValueRaf}"
                     SelectedValuePath="{Binding selectedValuePathRaf}"
@@ -59,10 +59,9 @@
                     RowHeight="20"
                     MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=RowHeight, Converter={StaticResource numberRows}}"
                     >
-            <!--MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=RowHeight, Converter={StaticResource numberRows}}"-->
             <DataGrid.Columns>
                 <DataGridTextColumn 
-                                    x:Name="col1"
+                                    Binding="{Binding nazwa}"
                                     Width="*"/>
             </DataGrid.Columns>
 
