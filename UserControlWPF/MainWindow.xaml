@@ -16,7 +16,7 @@
     <Window.Resources>
         <local:StringToInt x:Key="convStrToInt"/>
         <local:NumberRows x:Key="numberRows"/>
-        <controls:DataGridRaf x:Key="controlRaf" />
+       
         <controls:UserControlRaf1 x:Key="UserRaf1"/>
         <local:DaneRaf x:Key="daneRaf" />
         <Style TargetType="TextBox">
@@ -30,6 +30,9 @@
                                 
                                 selectedValuePathRaf="id"
                                 Height="321" 
+                                />
+
+        <controls:DataGridRafALL  Name="controlRafALL" 
                                 />
     </StackPanel>
 </Window>

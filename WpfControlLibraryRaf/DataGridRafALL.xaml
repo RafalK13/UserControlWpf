@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="WpfControlLibraryRaf.DataGridRafALL"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfControlLibraryRaf"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <local:NumberRows x:Key="numberRows"/>
+    </UserControl.Resources>
+
+    <DockPanel LastChildFill="False">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="{Binding ElementName=TekstPropRafALL, Path=Height}"/>
+            </Grid.ColumnDefinitions>
+            <TextBox    Margin="0,0,0,0"
+                        Grid.Column="0" 
+                        x:Name="TekstPropRafALL"
+                        FontSize="{Binding fontSizeRafALL}"
+                        Height="{Binding heightRafALL}"
+                        Text="{Binding TekstPropALL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                        LostKeyboardFocus="TekstPropRafALL_LostKeyboardFocus"/>
+            <Button     Grid.Column="1" 
+                        x:Name="podmiotDelButtonALL"
+                        Height="{Binding ElementName=TekstPropRafALL, Path=ActualHeight}"
+                        Width="{Binding RelativeSource={RelativeSource Self}, Path=Height}"
+                        Content="X"
+                        Foreground="Red"
+                        Background="{Binding ElementName=TekstPropRafALL, Path=Background}"
+                        Click="podmiotDelButton_ClickALL">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Visibility" Value="Visible"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=TekstPropRafALL, Path=Text}" Value="">
+                                <Setter Property="Visibility" Value="Hidden"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+        <DataGrid   x:Name="dataGridRafALL"
+                    DockPanel.Dock="Top"
+                    FontSize="{Binding fontSizeRafALL}"
+                    SelectionMode="Single"
+                    CanUserAddRows="False"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding listToDisplay}"
+                    SelectedItem="{Binding selectedItemRafALL}"
+                    SelectedValue="{Binding selectedValueRafALL}"
+                    SelectedValuePath="{Binding selectedValuePathRafALL}"
+                    AutoGenerateColumns="False"
+                    Panel.ZIndex="13"
+                    HeadersVisibility="None"
+                    RowHeight="20"
+                    MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=RowHeight, Converter={StaticResource numberRows}}"
+                    >
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                                    Binding="{Binding nazwa}"
+                                    Width="*"/>
+            </DataGrid.Columns>
+
+            <!--<DataGrid.Style>
+                <Style TargetType="DataGrid">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=TekstPropRafALL, Path=IsKeyboardFocused}" Value="true">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Style>-->
+        </DataGrid>
+
+    </DockPanel>
+</UserControl>

@@ -66,6 +66,9 @@
     <Compile Include="DataGridRaf.xaml.cs">
       <DependentUpon>DataGridRaf.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataGridRafALL.xaml.cs">
+      <DependentUpon>DataGridRafALL.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +108,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="DataGridRaf.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataGridRafALL.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
