@@ -10,7 +10,7 @@
         <local:NumberRows x:Key="numberRows"/>
     </UserControl.Resources>
 
-    <DockPanel LastChildFill="False">
+    <DockPanel LastChildFill="False" Loaded="DockPanel_Loaded">
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -49,7 +49,7 @@
                     SelectionMode="Single"
                     CanUserAddRows="False"
                     IsReadOnly="True"
-                    ItemsSource="{Binding listToDisplay}"
+                    ItemsSource="{Binding listToDisp}"
                     SelectedItem="{Binding selectedItemRafALL}"
                     SelectedValue="{Binding selectedValueRafALL}"
                     SelectedValuePath="{Binding selectedValuePathRafALL}"

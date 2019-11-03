@@ -88,6 +88,9 @@
     <Compile Include="UserControl3.xaml.cs">
       <DependentUpon>UserControl3.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControl4.xaml.cs">
+      <DependentUpon>UserControl4.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControlRaf1.xaml.cs">
       <DependentUpon>UserControlRaf1.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControl3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl4.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

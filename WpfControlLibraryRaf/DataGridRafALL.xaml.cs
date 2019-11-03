@@ -2,17 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WpfControlLibraryRaf
 {
@@ -30,6 +22,7 @@ namespace WpfControlLibraryRaf
             DataContext = this;
         }
 
+        #region itemSourceRafALL
         public IEnumerable itemSourceRafALL
         {
             get { return (IEnumerable)GetValue(itemSourceRafALLProperty); }
@@ -37,9 +30,35 @@ namespace WpfControlLibraryRaf
         }
 
         public static readonly DependencyProperty itemSourceRafALLProperty =
-            DependencyProperty.Register("itemSourceRafALL", typeof(IEnumerable), typeof(DataGridRafALL));
+            DependencyProperty.Register("itemSourceRafALL", typeof(IEnumerable), typeof(DataGridRafALL)  );
+        #endregion
 
-        public List<DataGridTab> listToDisp { get; set; }
+       
+
+        public List<DataGridTab> listToDisp
+        {
+            get
+            {
+                if (itemSourceRafALL != null)
+                {
+                    Type rowType = itemSourceRafALL.GetType().GetGenericArguments().First();
+
+                    var tab = itemSourceRafALL.Cast<object>();
+
+                    var t = tab.Select(row => new
+                    {
+                        id = rowType.GetType().GetProperty("id").GetValue(row),
+                        nazwa = rowType.GetType().GetProperty("nazwa").GetValue(row)
+                    });
+                    var n = t.Cast<DataGridTab>().ToList();
+
+                    //int a = 13;
+
+                    return n;
+                }
+                return null;
+            }
+        }
 
         #region fontSizeRaf
 
@@ -148,7 +167,7 @@ namespace WpfControlLibraryRaf
                     }
                     else
                     {
-                        
+
 
                         //u.selectedItemRaf = u.podmiotListView.Where(r => r.id == result).FirstOrDefault();
 
@@ -205,7 +224,9 @@ namespace WpfControlLibraryRaf
             }
         }
 
-
-
+        private void DockPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+          
+        }
     }
 }
