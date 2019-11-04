@@ -70,15 +70,6 @@ namespace WpfControlLibraryRaf
         public static readonly DependencyProperty tabRafProperty =
             DependencyProperty.Register("tabRaf", typeof(IEnumerable), typeof(UserControl4));
 
-        public List<object> listObj
-        {
-            get { return (List<object>)GetValue(listObjProperty); }
-            set { SetValue(listObjProperty, value); }
-        }
-
-        public static readonly DependencyProperty listObjProperty =
-            DependencyProperty.Register("listObj", typeof(List<object>), typeof(UserControl4));
-
         public List<Podmiot> tabIn
         {
             get { return (List<Podmiot>)GetValue(tabInProperty); }
