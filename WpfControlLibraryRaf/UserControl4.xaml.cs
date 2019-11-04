@@ -90,7 +90,6 @@ namespace WpfControlLibraryRaf
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
         {
-
             tabIn = tabRaf.Cast<object>().Select(row => new Podmiot()
             {
                 id = int.Parse( row.GetType().GetProperty("id").GetValue(row).ToString()),
