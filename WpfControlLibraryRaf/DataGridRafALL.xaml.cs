@@ -129,7 +129,6 @@ namespace WpfControlLibraryRaf
         }
         #endregion
 
-        #region ToHide
         #region selectedItemRafALL
         public DataGridTab selectedItemRafALL
         {
@@ -138,12 +137,31 @@ namespace WpfControlLibraryRaf
         }
 
         public static readonly DependencyProperty selectedItemRafALLProperty =
-            DependencyProperty.Register("selectedItemRafALL", typeof(DataGridTab), typeof(DataGridRafALL));
+            DependencyProperty.Register("selectedItemRafALL", typeof(DataGridTab), typeof(DataGridRafALL), new PropertyMetadata( null, onSelectedItemRafALLChenged));
+
+        private static void onSelectedItemRafALLChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DataGridRafALL u = d as DataGridRafALL;
+
+            if (u.selectedItemRafALL != null)
+                u.selectedIdRafALL = u.selectedItemRafALL.id;
+        }
+
+
+
+        public int selectedIdRafALL
+        {
+            get { return (int)GetValue(selectedIdRafALLProperty); }
+            set { SetValue(selectedIdRafALLProperty, value); }
+        }
+
+        public static readonly DependencyProperty selectedIdRafALLProperty =
+            DependencyProperty.Register("selectedIdRafALL", typeof(int), typeof(DataGridRafALL));
 
         #endregion
 
         #region selectedValueRafALL
-        #region MyRegion
+
         public object selectedValueRafALL
         {
             get { return (object)GetValue(selectedValueRafALLProperty); }
@@ -153,7 +171,6 @@ namespace WpfControlLibraryRaf
         public static readonly DependencyProperty selectedValueRafALLProperty =
             DependencyProperty.Register("selectedValueRafALL", typeof(object), typeof(DataGridRafALL), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedValue), new CoerceValueCallback(OnCoerceValueRaf)));
 
-        #endregion
         private static object OnCoerceValueRaf(DependencyObject d, object baseValue)
         {
             return baseValue;
@@ -199,7 +216,6 @@ namespace WpfControlLibraryRaf
         #endregion
 
         #region selectedValuePathRafALL
-        #region MyRegion
         public string selectedValuePathRafALL
         {
             get { return (string)GetValue(selectedValuePathRafProperty); }
@@ -208,7 +224,6 @@ namespace WpfControlLibraryRaf
 
         public static readonly DependencyProperty selectedValuePathRafProperty =
            DependencyProperty.Register("selectedValuePathRafALL", typeof(string), typeof(DataGridRaf), new PropertyMetadata("ID"));
-        #endregion
 
         #endregion
 
@@ -235,18 +250,19 @@ namespace WpfControlLibraryRaf
                 }
             }
         }
-        #endregion
 
         private void DockPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            itemSourceList = itemSourceRafALL.Cast<object>().Select(row => new DataGridTab()
+            if (itemSourceRafALL != null)
             {
-                id = int.Parse(row.GetType().GetProperty(colNameIdRaf).GetValue(row).ToString()),
-                nazwa = row.GetType().GetProperty(colNameRaf).GetValue(row).ToString()
-            }).ToList();
+                itemSourceList = itemSourceRafALL.Cast<object>().Select(row => new DataGridTab()
+                {
+                    id = int.Parse(row.GetType().GetProperty(colNameIdRaf).GetValue(row).ToString()),
+                    nazwa = row.GetType().GetProperty(colNameRaf).GetValue(row).ToString()
+                }).ToList();
 
-            listToDisplay = itemSourceList;
-           
+                listToDisplay = itemSourceList;
+            }
         }
     }
 }

@@ -49,13 +49,10 @@
                     SelectionMode="Single"
                     CanUserAddRows="False"
                     IsReadOnly="True"
-                   
                     ItemsSource="{Binding listToDisplay}"
-                    
                     SelectedItem="{Binding selectedItemRafALL}"
                     SelectedValue="{Binding selectedValueRafALL}"
                     SelectedValuePath="{Binding selectedValuePathRafALL}"
-                   
                     AutoGenerateColumns="False"
                     Panel.ZIndex="13"
                     HeadersVisibility="None"
