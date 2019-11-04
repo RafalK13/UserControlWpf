@@ -261,7 +261,9 @@ namespace WpfControlLibraryRaf
                     nazwa = row.GetType().GetProperty(colNameRaf).GetValue(row).ToString()
                 }).ToList();
 
-                listToDisplay = itemSourceList;
+                //listToDisplay = itemSourceList;
+                //TekstPropALL = "";
+                //MessageBox.Show( $"{listToDisplay.Count.ToString()}\r\n{itemSourceList.Count.ToString() }");
             }
         }
     }
