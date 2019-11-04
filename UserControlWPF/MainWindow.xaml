@@ -28,12 +28,18 @@
         <controls:DataGridRaf   Name="controlRaf" 
                                 podmiotList="{Binding Path=DataContext.podmiotList, ElementName=win}"
                                 selectedValuePathRaf="id"
+                                Height="121" 
+                                />
+
+        <controls:DataGridRafALL   Name="controlRafALL" 
+                                itemSourceRafALL="{Binding Path=DataContext.podmiotList, ElementName=win}"
+                                selectedValuePathRafALL="id"
                                 Height="321" 
                                 />
 
-        <controls:UserControl4 
+        <!--<controls:UserControl4 
                                tabRaf="{Binding Path=DataContext.personsList, ElementName=win}"
                                colName ="name"
-                                />
+                                />-->
     </StackPanel>
 </Window>

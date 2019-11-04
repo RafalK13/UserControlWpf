@@ -49,7 +49,7 @@
                     SelectionMode="Single"
                     CanUserAddRows="False"
                     IsReadOnly="True"
-                    ItemsSource="{Binding listToDisp}"
+                    ItemsSource="{Binding listToDisplay}"
                     SelectedItem="{Binding selectedItemRafALL}"
                     SelectedValue="{Binding selectedValueRafALL}"
                     SelectedValuePath="{Binding selectedValuePathRafALL}"
@@ -65,7 +65,7 @@
                                     Width="*"/>
             </DataGrid.Columns>
 
-            <!--<DataGrid.Style>
+            <DataGrid.Style>
                 <Style TargetType="DataGrid">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
@@ -74,8 +74,13 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </DataGrid.Style>-->
+            </DataGrid.Style>
         </DataGrid>
+        <!--MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=RowHeight, Converter={StaticResource numberRows}}"-->
+
+        <!--SelectedItem="{Binding selectedItemRafALL}"
+                    SelectedValue="{Binding selectedValueRafALL}"
+                    SelectedValuePath="{Binding selectedValuePathRafALL}"-->
 
     </DockPanel>
 </UserControl>

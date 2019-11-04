@@ -33,55 +33,70 @@ namespace WpfControlLibraryRaf
             DependencyProperty.Register("itemSourceRafALL", typeof(IEnumerable), typeof(DataGridRafALL)  );
         #endregion
 
-       
-
-        public List<DataGridTab> listToDisp
+        #region colNameRaf
+        public string colNameRaf
         {
-            get
-            {
-                if (itemSourceRafALL != null)
-                {
-                    Type rowType = itemSourceRafALL.GetType().GetGenericArguments().First();
-
-                    var tab = itemSourceRafALL.Cast<object>();
-
-                    var t = tab.Select(row => new
-                    {
-                        id = rowType.GetType().GetProperty("id").GetValue(row),
-                        nazwa = rowType.GetType().GetProperty("nazwa").GetValue(row)
-                    });
-                    var n = t.Cast<DataGridTab>().ToList();
-
-                    //int a = 13;
-
-                    return n;
-                }
-                return null;
-            }
+            get { return (string)GetValue(colNameRafProperty); }
+            set { SetValue(colNameRafProperty, value); }
         }
 
-        #region fontSizeRaf
+        public static readonly DependencyProperty colNameRafProperty =
+            DependencyProperty.Register("colNameRaf", typeof(string), typeof(DataGridRafALL), new PropertyMetadata("nazwa"));
+        #endregion
 
-        //public int fontSizeRaf
-        //{
-        //    get { return (int)GetValue(fontSizeProperty); }
-        //    set { SetValue(fontSizeProperty, value); }
-        //}
+        #region colNameIdRaf
+        public string colNameIdRaf
+        {
+            get { return (string)GetValue(colNameIdRafProperty); }
+            set { SetValue(colNameIdRafProperty, value); }
+        }
 
-        //public static readonly DependencyProperty fontSizeProperty =
-        //    DependencyProperty.Register("fontSizeRaf", typeof(int), typeof(DataGridRaf), new PropertyMetadata(14));
+        public static readonly DependencyProperty colNameIdRafProperty =
+            DependencyProperty.Register("colNameIdRaf", typeof(string), typeof(DataGridRafALL), new PropertyMetadata("id"));
+        #endregion
 
-        #endregion       
+        #region listToDisplay
+        public List<DataGridTab> listToDisplay
+        {
+            get { return (List<DataGridTab>)GetValue(listToDisplayProperty); }
+            set { SetValue(listToDisplayProperty, value); }
+        }
 
-        #region heightRaf
-        //public int heightRaf
-        //{
-        //    get { return (int)GetValue(heightRafProperty); }
-        //    set { SetValue(heightRafProperty, value); }
-        //}
+        public static readonly DependencyProperty listToDisplayProperty =
+            DependencyProperty.Register("listToDisplay", typeof(List<DataGridTab>), typeof(DataGridRafALL));
+        #endregion
 
-        //public static readonly DependencyProperty heightRafProperty =
-        //    DependencyProperty.Register("heightRaf", typeof(int), typeof(DataGridRaf), new PropertyMetadata(25));
+        #region itemSourceList
+        public List<DataGridTab> itemSourceList
+        {
+            get { return (List<DataGridTab>)GetValue(itemSourceListProperty); }
+            set { SetValue(itemSourceListProperty, value); }
+        }
+
+        public static readonly DependencyProperty itemSourceListProperty =
+            DependencyProperty.Register("itemSourceList", typeof(List<DataGridTab>), typeof(DataGridRafALL));
+        #endregion
+
+        #region fontSizeRafALL
+        public int fontSizeRafALL
+        {
+            get { return (int)GetValue(fontSizeRafALLProperty); }
+            set { SetValue(fontSizeRafALLProperty, value); }
+        }
+        public static readonly DependencyProperty fontSizeRafALLProperty =
+            DependencyProperty.Register("fontSizeRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(14));
+
+        #endregion
+       
+        #region heightRafALL
+        public int heightRafALL
+        {
+            get { return (int)GetValue(heightRafALLProperty); }
+            set { SetValue(heightRafALLProperty, value); }
+        }
+
+        public static readonly DependencyProperty heightRafALLProperty =
+            DependencyProperty.Register("heightRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(25));
         #endregion
 
         #region podmiotDelButton_ClickALL
@@ -92,43 +107,61 @@ namespace WpfControlLibraryRaf
         #endregion
 
         #region TekstPropALL
-        #region MyRegion
         public string TekstPropALL
         {
             get { return (string)GetValue(TekstPropALLProperty); }
             set { SetValue(TekstPropALLProperty, value); }
         }
         public static readonly DependencyProperty TekstPropALLProperty =
-            DependencyProperty.Register("TekstPropALL", typeof(string), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(OnTekstPropChangedALL)));
+            DependencyProperty.Register("TekstPropALL", typeof(string), typeof(DataGridRafALL), new PropertyMetadata(null,  new PropertyChangedCallback(OnTekstPropChangedALL)));
 
-        #endregion
         private static void OnTekstPropChangedALL(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DataGridRafALL u = d as DataGridRafALL;
+            
             if (u.TekstPropALL != null)
             {
                 if (u.TekstPropALL.Length >= 3)
                 {
-                    //u.podmiotListView = u.podmiotList.Where(r => r.nazwa.Contains(u.TekstPropALL) == true).ToList();
+                    u.listToDisplay = u.itemSourceList.Where(r => r.nazwa.Contains(u.TekstPropALL) == true).ToList();
                 }
             }
         }
         #endregion
 
         #region selectedItemRafALL
-        public Podmiot selectedItemRafALL
+        public DataGridTab selectedItemRafALL
         {
-            get { return (Podmiot)GetValue(selectedItemRafALLProperty); }
+            get { return (DataGridTab)GetValue(selectedItemRafALLProperty); }
             set { SetValue(selectedItemRafALLProperty, value); }
         }
 
         public static readonly DependencyProperty selectedItemRafALLProperty =
-            DependencyProperty.Register("selectedItemRafALL", typeof(Podmiot), typeof(DataGridRaf));
+            DependencyProperty.Register("selectedItemRafALL", typeof(DataGridTab), typeof(DataGridRafALL), new PropertyMetadata( null, onSelectedItemRafALLChenged));
+
+        private static void onSelectedItemRafALLChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DataGridRafALL u = d as DataGridRafALL;
+
+            if (u.selectedItemRafALL != null)
+                u.selectedIdRafALL = u.selectedItemRafALL.id;
+        }
+
+
+
+        public int selectedIdRafALL
+        {
+            get { return (int)GetValue(selectedIdRafALLProperty); }
+            set { SetValue(selectedIdRafALLProperty, value); }
+        }
+
+        public static readonly DependencyProperty selectedIdRafALLProperty =
+            DependencyProperty.Register("selectedIdRafALL", typeof(int), typeof(DataGridRafALL));
 
         #endregion
 
         #region selectedValueRafALL
-        #region MyRegion
+
         public object selectedValueRafALL
         {
             get { return (object)GetValue(selectedValueRafALLProperty); }
@@ -136,9 +169,8 @@ namespace WpfControlLibraryRaf
         }
 
         public static readonly DependencyProperty selectedValueRafALLProperty =
-            DependencyProperty.Register("selectedValueRafALL", typeof(object), typeof(DataGridRaf), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedValue), new CoerceValueCallback(OnCoerceValueRaf)));
+            DependencyProperty.Register("selectedValueRafALL", typeof(object), typeof(DataGridRafALL), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedValue), new CoerceValueCallback(OnCoerceValueRaf)));
 
-        #endregion
         private static object OnCoerceValueRaf(DependencyObject d, object baseValue)
         {
             return baseValue;
@@ -167,9 +199,7 @@ namespace WpfControlLibraryRaf
                     }
                     else
                     {
-
-
-                        //u.selectedItemRaf = u.podmiotListView.Where(r => r.id == result).FirstOrDefault();
+                        u.selectedItemRafALL = u.listToDisplay.Where(r => r.id == result).FirstOrDefault();
 
                         if (u.selectedItemRafALL == null)
                         {
@@ -181,13 +211,11 @@ namespace WpfControlLibraryRaf
                         }
                     }
                 }
-
             }
         }
         #endregion
 
         #region selectedValuePathRafALL
-        #region MyRegion
         public string selectedValuePathRafALL
         {
             get { return (string)GetValue(selectedValuePathRafProperty); }
@@ -196,7 +224,6 @@ namespace WpfControlLibraryRaf
 
         public static readonly DependencyProperty selectedValuePathRafProperty =
            DependencyProperty.Register("selectedValuePathRafALL", typeof(string), typeof(DataGridRaf), new PropertyMetadata("ID"));
-        #endregion
 
         #endregion
 
@@ -205,7 +232,7 @@ namespace WpfControlLibraryRaf
             TekstPropALL = string.Empty;
             selectedItemRafALL = null;
             selectedValueRafALL = 0;
-            //podmiotListView = null;
+            listToDisplay = null;
         }
 
         private void TekstPropRafALL_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -226,7 +253,16 @@ namespace WpfControlLibraryRaf
 
         private void DockPanel_Loaded(object sender, RoutedEventArgs e)
         {
-          
+            if (itemSourceRafALL != null)
+            {
+                itemSourceList = itemSourceRafALL.Cast<object>().Select(row => new DataGridTab()
+                {
+                    id = int.Parse(row.GetType().GetProperty(colNameIdRaf).GetValue(row).ToString()),
+                    nazwa = row.GetType().GetProperty(colNameRaf).GetValue(row).ToString()
+                }).ToList();
+
+                listToDisplay = itemSourceList;
+            }
         }
     }
 }
