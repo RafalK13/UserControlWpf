@@ -25,17 +25,24 @@
     </Window.Resources>
 
     <StackPanel Orientation="Vertical">
-        <controls:DataGridRaf   Name="controlRaf" 
+        <!--<controls:DataGridRaf   Name="controlRaf" 
                                 podmiotList="{Binding Path=DataContext.podmiotList, ElementName=win}"
                                 selectedValuePathRaf="id"
                                 Height="121" 
-                                />
+                                />-->
 
-        <controls:DataGridRafALL   Name="controlRafALL" 
+        <controls:DataGridRafALL   Name="controlRafALL1" 
                                 itemSourceRafALL="{Binding Path=DataContext.podmiotList, ElementName=win}"
                                
                                 Height="321" 
                                 clearTekstOnExit="true"
+                                />
+
+        <controls:DataGridRafALL   Name="controlRafALL2" 
+                                itemSourceRafALL="{Binding Path=DataContext.podmiotList, ElementName=win}"
+                               
+                                Height="321" 
+                                clearTekstOnExit="false"
                                 />
         <!--selectedValuePathRafALL="id"-->
         <!--<controls:UserControl4 

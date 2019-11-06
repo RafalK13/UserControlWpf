@@ -319,24 +319,26 @@ namespace WpfControlLibraryRaf
         private void TekstPropRafALL_LostFocus(object sender, RoutedEventArgs e)
         {
             //clearTekstOnExit = false;
-
-            if (clearTekstOnExit == true)
+            if (TekstPropALL.Count() >= 3)
             {
-                TekstPropALL = string.Empty;
-                selectedIdRafALL = 0;
-                selectedItemRafALL = null;
-            }
-            else
-            {
-                selectedItemRafALL = listToDisplay.FirstOrDefault(r => r.nazwa == TekstPropALL);
-
-                if (selectedItemRafALL != null)
+                if (clearTekstOnExit == true)
                 {
-                    selectedIdRafALL = selectedItemRafALL.id;
+                    TekstPropALL = string.Empty;
+                    selectedIdRafALL = 0;
+                    selectedItemRafALL = null;
                 }
+                else
+                {
+                    selectedItemRafALL = listToDisplay.FirstOrDefault(r => r.nazwa == TekstPropALL);
 
-                //if(selectedItemRafALL!= null)
-                //MessageBox.Show($"{selectedIdRafALL}\r\n{selectedItemRafALL.nazwa}");
+                    if (selectedItemRafALL != null)
+                    {
+                        selectedIdRafALL = selectedItemRafALL.id;
+                    }
+
+                    //if(selectedItemRafALL!= null)
+                    //MessageBox.Show($"{selectedIdRafALL}\r\n{selectedItemRafALL.nazwa}");
+                }
             }
         }
     }
