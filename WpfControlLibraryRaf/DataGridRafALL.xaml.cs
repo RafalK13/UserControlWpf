@@ -20,6 +20,20 @@ namespace WpfControlLibraryRaf
         {
             InitializeComponent();
             DataContext = this;
+
+            TekstPropRafALL.TextChanged += TekstPropRafALL_TextChanged;
+        }
+
+        public event EventHandler UserControlChanged;
+
+        private void TekstPropRafALL_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (UserControlChanged != null)
+            {
+                if( TekstPropALL.Count() > 3)
+                UserControlChanged(this, EventArgs.Empty);
+            }
         }
 
         public bool clearTekstOnExit
@@ -341,5 +355,17 @@ namespace WpfControlLibraryRaf
                 }
             }
         }
+
+        //public static readonly RoutedEvent changeTekstRafEvent = EventManager.RegisterRoutedEvent(
+        //        "changeTekstRaf",           // Event name
+        //        RoutingStrategy.Bubble,     // Bubble means the event will bubble up through the tree
+        //        typeof(RoutedEventHandler), // The event type
+        //        typeof(DataGridRafALL));    // Belongs to DataGridRafALL
+
+        //public event RoutedEventHandler changeTekstRaf
+        //{
+        //    add { AddHandler(changeTekstRafEvent, value); }
+        //    remove { RemoveHandler(changeTekstRafEvent, value); }
+        //}
     }
 }
