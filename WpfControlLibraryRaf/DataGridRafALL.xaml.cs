@@ -22,6 +22,15 @@ namespace WpfControlLibraryRaf
             DataContext = this;
         }
 
+        public bool clearTekstOnExit
+        {
+            get { return (bool)GetValue(clearTekstOnExitProperty); }
+            set { SetValue(clearTekstOnExitProperty, value); }
+        }
+
+        public static readonly DependencyProperty clearTekstOnExitProperty =
+            DependencyProperty.Register("clearTekstOnExit", typeof(bool), typeof(DataGridRafALL), new PropertyMetadata(true));
+        
         #region itemSourceRafALL
         public IEnumerable itemSourceRafALL
         {
@@ -123,7 +132,7 @@ namespace WpfControlLibraryRaf
             {
                 if (u.TekstPropALL.Length >= 3)
                 {
-                    u.listToDisplay = u.itemSourceList.Where(r => r.nazwa.Contains(u.TekstPropALL) == true).ToList();
+                    u.listToDisplay = u.itemSourceList.Where(r => r.nazwa.ToUpper().Contains(u.TekstPropALL.ToUpper()) == true).ToList();
                 }
             }
         }
@@ -141,13 +150,16 @@ namespace WpfControlLibraryRaf
 
         private static void onSelectedItemRafALLChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+
+            //MessageBox.Show("selectedItemRafALL");
             DataGridRafALL u = d as DataGridRafALL;
 
             if (u.selectedItemRafALL != null)
+            {
+                u.TekstPropALL = u.selectedItemRafALL.nazwa;
                 u.selectedIdRafALL = u.selectedItemRafALL.id;
+            }
         }
-
-
 
         public int selectedIdRafALL
         {
@@ -169,15 +181,17 @@ namespace WpfControlLibraryRaf
         }
 
         public static readonly DependencyProperty selectedValueRafALLProperty =
-            DependencyProperty.Register("selectedValueRafALL", typeof(object), typeof(DataGridRafALL), new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedValue), new CoerceValueCallback(OnCoerceValueRaf)));
+            DependencyProperty.Register("selectedValueRafALL", typeof(object), typeof(DataGridRafALL));//, new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedValue)));//, new CoerceValueCallback(OnCoerceValueRaf)));
 
         private static object OnCoerceValueRaf(DependencyObject d, object baseValue)
         {
+            //return baseValue;
             return baseValue;
         }
 
         private static void OnSelectedValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            //MessageBox.Show("selectedValueRafALL");
             DataGridRafALL u = d as DataGridRafALL;
             int result;
 
@@ -200,7 +214,7 @@ namespace WpfControlLibraryRaf
                     else
                     {
                         u.selectedItemRafALL = u.listToDisplay.Where(r => r.id == result).FirstOrDefault();
-
+                        
                         if (u.selectedItemRafALL == null)
                         {
                             u.TekstPropALL = string.Empty;
@@ -227,28 +241,69 @@ namespace WpfControlLibraryRaf
 
         #endregion
 
+        public void clsValuesOnExit()
+        {
+            selectedItemRafALL = null;
+        }
+
         public void clsValues()
         {
             TekstPropALL = string.Empty;
             selectedItemRafALL = null;
-            selectedValueRafALL = 0;
+            selectedValueRafALL = null;
+            selectedIdRafALL = 0;
             listToDisplay = null;
         }
 
-        private void TekstPropRafALL_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private bool testIdentity()
         {
-            if (!(e.NewFocus is DataGridCell))
+            var v = listToDisplay.FirstOrDefault(r => r.nazwa == TekstPropALL);
+
+            if (v != null)
             {
+                selectedIdRafALL = v.id;
+
                 if (selectedItemRafALL != null)
                 {
-                    if (selectedItemRafALL.nazwa.ToString() != TekstPropALL)
-                        clsValues();
+                    selectedItemRafALL.id = selectedIdRafALL;
+                    selectedItemRafALL.nazwa = TekstPropALL;
                 }
-                else
-                {
-                    clsValues();
-                }
+                
+                return true;
             }
+            selectedIdRafALL = 0;
+            selectedItemRafALL = null;
+
+            return false;
+        }
+        
+        private void TekstPropRafALL_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+
+            //MessageBox.Show("Lost");
+            //clearTekstOnExit = true;
+
+            //if (!(e.NewFocus is DataGridCell))
+            //{
+            //    MessageBox.Show("DataGridCell");
+            //    if (selectedItemRafALL != null)
+            //    {
+            //        if (selectedItemRafALL.nazwa.ToString() != TekstPropALL)
+            //        {
+            //            MessageBox.Show("1");
+            //            clsValuesOnExit();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Żart");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("2");
+            //        clsValuesOnExit();
+            //    }
+            //}
         }
 
         private void DockPanel_Loaded(object sender, RoutedEventArgs e)
@@ -260,10 +315,22 @@ namespace WpfControlLibraryRaf
                     id = int.Parse(row.GetType().GetProperty(colNameIdRaf).GetValue(row).ToString()),
                     nazwa = row.GetType().GetProperty(colNameRaf).GetValue(row).ToString()
                 }).ToList();
+            }
+        }
 
-                //listToDisplay = itemSourceList;
-                //TekstPropALL = "";
-                //MessageBox.Show( $"{listToDisplay.Count.ToString()}\r\n{itemSourceList.Count.ToString() }");
+        private void TekstPropRafALL_LostFocus(object sender, RoutedEventArgs e)
+        {
+            //clearTekstOnExit = false;
+
+            if (clearTekstOnExit == true)
+            {
+                TekstPropALL = string.Empty;
+                selectedIdRafALL = 0;
+                selectedItemRafALL = null;
+            }
+            else
+            {
+                selectedItemRafALL = null;
             }
         }
     }

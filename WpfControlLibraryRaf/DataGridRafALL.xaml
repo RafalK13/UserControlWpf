@@ -22,7 +22,7 @@
                         FontSize="{Binding fontSizeRafALL}"
                         Height="{Binding heightRafALL}"
                         Text="{Binding TekstPropALL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                        LostKeyboardFocus="TekstPropRafALL_LostKeyboardFocus"/>
+                        LostKeyboardFocus="TekstPropRafALL_LostKeyboardFocus" LostFocus="TekstPropRafALL_LostFocus"/>
             <Button     Grid.Column="1" 
                         x:Name="podmiotDelButtonALL"
                         Height="{Binding ElementName=TekstPropRafALL, Path=ActualHeight}"
@@ -50,14 +50,14 @@
                     CanUserAddRows="False"
                     IsReadOnly="True"
                     ItemsSource="{Binding listToDisplay}"
-                    SelectedItem="{Binding selectedItemRafALL}"
+                    SelectedItem="{Binding selectedItemRafALL, UpdateSourceTrigger=PropertyChanged}"
                     SelectedValue="{Binding selectedValueRafALL}"
                     SelectedValuePath="{Binding selectedValuePathRafALL}"
                     AutoGenerateColumns="False"
                     Panel.ZIndex="13"
                     HeadersVisibility="None"
                     RowHeight="20"
-                    MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=RowHeight, Converter={StaticResource numberRows}}"
+                    MaxHeight="{Binding RelativeSource={RelativeSource Self}, Path=RowHeight, Converter={StaticResource numberRows}}" 
                     >
             <DataGrid.Columns>
                 <DataGridTextColumn 

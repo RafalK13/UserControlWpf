@@ -35,6 +35,7 @@
                                 itemSourceRafALL="{Binding Path=DataContext.podmiotList, ElementName=win}"
                                 selectedValuePathRafALL="id"
                                 Height="321" 
+                                clearTekstOnExit="true"
                                 />
 
         <!--<controls:UserControl4 
