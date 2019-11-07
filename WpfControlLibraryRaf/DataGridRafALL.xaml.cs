@@ -24,36 +24,26 @@ namespace WpfControlLibraryRaf
             TekstPropRafALL.TextChanged += TekstPropRafALL_TextChanged;
         }
 
-        public event EventHandler UserControlChanged;
-
-        private void TekstPropRafALL_TextChanged(object sender, TextChangedEventArgs e)
+        #region fontSizeRafALL
+        public int fontSizeRafALL
         {
+            get { return (int)GetValue(fontSizeRafALLProperty); }
+            set { SetValue(fontSizeRafALLProperty, value); }
+        }
+        public static readonly DependencyProperty fontSizeRafALLProperty =
+            DependencyProperty.Register("fontSizeRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(14));
 
-            if (UserControlChanged != null)
-            {
-                if( TekstPropALL.Count() > 3)
-                UserControlChanged(this, EventArgs.Empty);
-            }
+        #endregion
+
+        #region heightRafALL
+        public int heightRafALL
+        {
+            get { return (int)GetValue(heightRafALLProperty); }
+            set { SetValue(heightRafALLProperty, value); }
         }
 
-        public bool clearTekstOnExit
-        {
-            get { return (bool)GetValue(clearTekstOnExitProperty); }
-            set { SetValue(clearTekstOnExitProperty, value); }
-        }
-
-        public static readonly DependencyProperty clearTekstOnExitProperty =
-            DependencyProperty.Register("clearTekstOnExit", typeof(bool), typeof(DataGridRafALL), new PropertyMetadata(true));
-        
-        #region itemSourceRafALL
-        public IEnumerable itemSourceRafALL
-        {
-            get { return (IEnumerable)GetValue(itemSourceRafALLProperty); }
-            set { SetValue(itemSourceRafALLProperty, value); }
-        }
-
-        public static readonly DependencyProperty itemSourceRafALLProperty =
-            DependencyProperty.Register("itemSourceRafALL", typeof(IEnumerable), typeof(DataGridRafALL)  );
+        public static readonly DependencyProperty heightRafALLProperty =
+            DependencyProperty.Register("heightRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(25));
         #endregion
 
         #region colNameRaf
@@ -78,15 +68,15 @@ namespace WpfControlLibraryRaf
             DependencyProperty.Register("colNameIdRaf", typeof(string), typeof(DataGridRafALL), new PropertyMetadata("id"));
         #endregion
 
-        #region listToDisplay
-        public List<DataGridTab> listToDisplay
+        #region itemSourceRafALL
+        public IEnumerable itemSourceRafALL
         {
-            get { return (List<DataGridTab>)GetValue(listToDisplayProperty); }
-            set { SetValue(listToDisplayProperty, value); }
+            get { return (IEnumerable)GetValue(itemSourceRafALLProperty); }
+            set { SetValue(itemSourceRafALLProperty, value); }
         }
 
-        public static readonly DependencyProperty listToDisplayProperty =
-            DependencyProperty.Register("listToDisplay", typeof(List<DataGridTab>), typeof(DataGridRafALL));
+        public static readonly DependencyProperty itemSourceRafALLProperty =
+            DependencyProperty.Register("itemSourceRafALL", typeof(IEnumerable), typeof(DataGridRafALL));
         #endregion
 
         #region itemSourceList
@@ -100,33 +90,15 @@ namespace WpfControlLibraryRaf
             DependencyProperty.Register("itemSourceList", typeof(List<DataGridTab>), typeof(DataGridRafALL));
         #endregion
 
-        #region fontSizeRafALL
-        public int fontSizeRafALL
+        #region listToDisplay
+        public List<DataGridTab> listToDisplay
         {
-            get { return (int)GetValue(fontSizeRafALLProperty); }
-            set { SetValue(fontSizeRafALLProperty, value); }
-        }
-        public static readonly DependencyProperty fontSizeRafALLProperty =
-            DependencyProperty.Register("fontSizeRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(14));
-
-        #endregion
-       
-        #region heightRafALL
-        public int heightRafALL
-        {
-            get { return (int)GetValue(heightRafALLProperty); }
-            set { SetValue(heightRafALLProperty, value); }
+            get { return (List<DataGridTab>)GetValue(listToDisplayProperty); }
+            set { SetValue(listToDisplayProperty, value); }
         }
 
-        public static readonly DependencyProperty heightRafALLProperty =
-            DependencyProperty.Register("heightRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(25));
-        #endregion
-
-        #region podmiotDelButton_ClickALL
-        private void podmiotDelButton_ClickALL(object sender, RoutedEventArgs e)
-        {
-            clsValues();
-        }
+        public static readonly DependencyProperty listToDisplayProperty =
+            DependencyProperty.Register("listToDisplay", typeof(List<DataGridTab>), typeof(DataGridRafALL));
         #endregion
 
         #region TekstPropALL
@@ -172,7 +144,9 @@ namespace WpfControlLibraryRaf
                 u.selectedIdRafALL = u.selectedItemRafALL.id;
             }
         }
+        #endregion
 
+        #region selectedIdRafALL
         public int selectedIdRafALL
         {
             get { return (int)GetValue(selectedIdRafALLProperty); }
@@ -184,75 +158,7 @@ namespace WpfControlLibraryRaf
 
         #endregion
 
-        //#region selectedValueRafALL
-
-        //public object selectedValueRafALL
-        //{
-        //    get { return (object)GetValue(selectedValueRafALLProperty); }
-        //    set { SetValue(selectedValueRafALLProperty, value); }
-        //}
-
-        //public static readonly DependencyProperty selectedValueRafALLProperty =
-        //    DependencyProperty.Register("selectedValueRafALL", typeof(object), typeof(DataGridRafALL));//, new PropertyMetadata(null, new PropertyChangedCallback(OnSelectedValue)));//, new CoerceValueCallback(OnCoerceValueRaf)));
-
-        //private static object OnCoerceValueRaf(DependencyObject d, object baseValue)
-        //{
-        //    //return baseValue;
-        //    return baseValue;
-        //}
-
-        //private static void OnSelectedValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    //MessageBox.Show("selectedValueRafALL");
-        //    DataGridRafALL u = d as DataGridRafALL;
-        //    int result;
-
-        //    if (u.selectedValueRafALL != null)
-        //    {
-        //        if (Convert.IsDBNull(u.selectedValueRafALL))
-        //        {
-        //            u.selectedItemRafALL = null;
-        //            u.TekstPropALL = string.Empty;
-        //        }
-        //        else
-        //        {
-        //            int.TryParse(u.selectedValueRafALL.ToString().ToString(), out result);
-
-        //            if (result == 0)
-        //            {
-        //                u.selectedItemRafALL = null;
-        //                u.TekstPropALL = string.Empty;
-        //            }
-        //            else
-        //            {
-        //                u.selectedItemRafALL = u.listToDisplay.Where(r => r.id == result).FirstOrDefault();
-                        
-        //                if (u.selectedItemRafALL == null)
-        //                {
-        //                    u.TekstPropALL = string.Empty;
-        //                }
-        //                else
-        //                {
-        //                    u.TekstPropALL = u.selectedItemRafALL.nazwa;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-        //#endregion
-
-        //#region selectedValuePathRafALL
-        //public string selectedValuePathRafALL
-        //{
-        //    get { return (string)GetValue(selectedValuePathRafProperty); }
-        //    set { SetValue(selectedValuePathRafProperty, value); }
-        //}
-
-        //public static readonly DependencyProperty selectedValuePathRafProperty =
-        //   DependencyProperty.Register("selectedValuePathRafALL", typeof(string), typeof(DataGridRaf), new PropertyMetadata("ID"));
-
-        //#endregion
-
+        #region clsValues
         public void clsValuesOnExit()
         {
             selectedItemRafALL = null;
@@ -262,63 +168,42 @@ namespace WpfControlLibraryRaf
         {
             TekstPropALL = string.Empty;
             selectedItemRafALL = null;
-            //selectedValueRafALL = null;
             selectedIdRafALL = 0;
             listToDisplay = null;
         }
 
-        private bool testIdentity()
+        public bool clearTekstOnExit
         {
-            var v = listToDisplay.FirstOrDefault(r => r.nazwa == TekstPropALL);
+            get { return (bool)GetValue(clearTekstOnExitProperty); }
+            set { SetValue(clearTekstOnExitProperty, value); }
+        }
+        public static readonly DependencyProperty clearTekstOnExitProperty =
+           DependencyProperty.Register("clearTekstOnExit", typeof(bool), typeof(DataGridRafALL), new PropertyMetadata(true));
+        #endregion
 
-            if (v != null)
+        #region events
+        public event EventHandler UserControlChanged;
+
+        private void TekstPropRafALL_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (UserControlChanged != null)
             {
-                selectedIdRafALL = v.id;
-
-                if (selectedItemRafALL != null)
-                {
-                    selectedItemRafALL.id = selectedIdRafALL;
-                    selectedItemRafALL.nazwa = TekstPropALL;
-                }
-                
-                return true;
+                if (TekstPropALL.Count() >= 3)
+                    UserControlChanged(this, EventArgs.Empty);
             }
-            selectedIdRafALL = 0;
-            selectedItemRafALL = null;
-
-            return false;
         }
+
         
-        private void TekstPropRafALL_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+
+        #region podmiotDelButton_ClickALL
+        private void podmiotDelButton_ClickALL(object sender, RoutedEventArgs e)
         {
-
-            //MessageBox.Show("Lost");
-            //clearTekstOnExit = true;
-
-            //if (!(e.NewFocus is DataGridCell))
-            //{
-            //    MessageBox.Show("DataGridCell");
-            //    if (selectedItemRafALL != null)
-            //    {
-            //        if (selectedItemRafALL.nazwa.ToString() != TekstPropALL)
-            //        {
-            //            MessageBox.Show("1");
-            //            clsValuesOnExit();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("Żart");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("2");
-            //        clsValuesOnExit();
-            //    }
-            //}
+            clsValues();
         }
+        #endregion
 
-        private void DockPanel_Loaded(object sender, RoutedEventArgs e)
+       private void DockPanel_Loaded(object sender, RoutedEventArgs e)
         {
             if (itemSourceRafALL != null)
             {
@@ -332,40 +217,28 @@ namespace WpfControlLibraryRaf
 
         private void TekstPropRafALL_LostFocus(object sender, RoutedEventArgs e)
         {
-            //clearTekstOnExit = false;
-            if (TekstPropALL.Count() >= 3)
+            if(TekstPropALL != null)
             {
-                if (clearTekstOnExit == true)
+                if (TekstPropALL.Count() >= 3)
                 {
-                    TekstPropALL = string.Empty;
-                    selectedIdRafALL = 0;
-                    selectedItemRafALL = null;
-                }
-                else
-                {
-                    selectedItemRafALL = listToDisplay.FirstOrDefault(r => r.nazwa == TekstPropALL);
-
-                    if (selectedItemRafALL != null)
+                    if (clearTekstOnExit == true)
                     {
-                        selectedIdRafALL = selectedItemRafALL.id;
+                        TekstPropALL = string.Empty;
+                        selectedIdRafALL = 0;
+                        selectedItemRafALL = null;
                     }
+                    else
+                    {
+                        selectedItemRafALL = listToDisplay.FirstOrDefault(r => r.nazwa == TekstPropALL);
 
-                    //if(selectedItemRafALL!= null)
-                    //MessageBox.Show($"{selectedIdRafALL}\r\n{selectedItemRafALL.nazwa}");
+                        if (selectedItemRafALL != null)
+                        {
+                            selectedIdRafALL = selectedItemRafALL.id;
+                        }
+                    }
                 }
             }
         }
-
-        //public static readonly RoutedEvent changeTekstRafEvent = EventManager.RegisterRoutedEvent(
-        //        "changeTekstRaf",           // Event name
-        //        RoutingStrategy.Bubble,     // Bubble means the event will bubble up through the tree
-        //        typeof(RoutedEventHandler), // The event type
-        //        typeof(DataGridRafALL));    // Belongs to DataGridRafALL
-
-        //public event RoutedEventHandler changeTekstRaf
-        //{
-        //    add { AddHandler(changeTekstRafEvent, value); }
-        //    remove { RemoveHandler(changeTekstRafEvent, value); }
-        //}
+        #endregion
     }
 }

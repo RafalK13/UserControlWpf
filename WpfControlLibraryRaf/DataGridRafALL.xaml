@@ -22,8 +22,7 @@
                         FontSize="{Binding fontSizeRafALL}"
                         Height="{Binding heightRafALL}"
                         Text="{Binding TekstPropALL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                       
-                        LostKeyboardFocus="TekstPropRafALL_LostKeyboardFocus" LostFocus="TekstPropRafALL_LostFocus"  />
+                        LostFocus="TekstPropRafALL_LostFocus"  />
             <Button     Grid.Column="1" 
                         x:Name="podmiotDelButtonALL"
                         Height="{Binding ElementName=TekstPropRafALL, Path=ActualHeight}"
