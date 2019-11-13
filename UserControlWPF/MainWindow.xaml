@@ -33,17 +33,22 @@
 
         <controls:DataGridRafALL   Name="controlRafALL1" 
                                 itemSourceRafALL="{Binding Path=DataContext.podmiotList, ElementName=win}"
-                               
+                                
                                 Height="321" 
                                 clearTekstOnExit="true"
                                 />
 
-        <controls:DataGridRafALL   Name="controlRafALL2" 
+        <TextBox Text="{Binding idRaf, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Text="{Binding stringResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <controls:DataGridRafALL   
+                                Name="controlRafALL2" 
                                 itemSourceRafALL="{Binding Path=DataContext.podmiotList, ElementName=win}"
-                               
+                                TekstPropALL="{Binding Path=DataContext.stringResult, ElementName=win, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                selectedIdRafALL="{Binding Path=DataContext.idRaf, ElementName=win, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Height="321" 
                                 clearTekstOnExit="false"
                                 />
+        <!--selectedIdRafALL="{Binding Path=DataContext.idRaf, ElementName=win, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
         <!--selectedValuePathRafALL="id"-->
         <!--<controls:UserControl4 
                                tabRaf="{Binding Path=DataContext.personsList, ElementName=win}"

@@ -37,6 +37,24 @@ namespace UserControlWPF
 
     public class DaneRaf : INotifyPropertyChanged
     {
+        private string _stringResult;
+        public string stringResult {
+            get => _stringResult;
+            set {
+                _stringResult = value;
+                NotifyPropertyChanged("stringResult");
+            }
+        }
+
+
+        public int _idRaf;
+        public int idRaf { get => _idRaf;
+            set {
+                _idRaf = value;
+                NotifyPropertyChanged("idRaf");
+            }
+        }
+
         public List<Podmiot> podmiotList { get; set; }
 
         public ObservableCollection<Person> persons { get; set; }
@@ -107,24 +125,22 @@ namespace UserControlWPF
             tekst = "Class value";
             dvSourceRaf = new DataView(dtSourceRaf);
             personsList = new List<Person>();
-                 personsList.Add(new Person(1, "Rafał", "Gdańsk", 47));
-                 personsList.Add(new Person(2, "Rafał1", "Gdańsk", 47));
-                 personsList.Add( new Person(3, "Rafał2", "Gdańsk", 47));
-                 personsList.Add( new Person(4, "Rafał3", "Gdańsk", 47));
-                 personsList.Add( new Person(5, "Rafał4", "Gdańsk", 47));
-                 personsList.Add( new Person(6, "Rafał5", "Gdańsk", 47));
-                 personsList.Add( new Person(7, "Rafał6", "Gdańsk", 47));
-                 personsList.Add( new Person(8, "Hanula", "Gdańsk", 11));
-                 personsList.Add( new Person(9, "Hanula1", "Gdańsk", 11));
-                 personsList.Add( new Person(10, "Hanula2", "Gdańsk", 11));
-                 personsList.Add( new Person(11, "Hanula3", "Gdańsk", 11));
-                 personsList.Add( new Person(12, "Beti", "Sybir", 48));
-                 personsList.Add( new Person(13, "Beti1", "Sybir", 48));
+                 personsList.Add( new Person(0,  "Rafał" , "Gdańsk", 47));
+                 personsList.Add( new Person(1,  "Rafał1", "Gdańsk", 47));
+                 personsList.Add( new Person(2,  "Rafał2", "Gdańsk", 47));
+                 personsList.Add( new Person(3,  "Rafał3", "Gdańsk", 47));
+                 personsList.Add( new Person(4,  "Rafał4", "Gdańsk", 47));
+                 personsList.Add( new Person(5,  "Rafał5", "Gdańsk", 47));
+                 personsList.Add( new Person(6,  "Rafał6", "Gdańsk", 47));
+                 personsList.Add( new Person(10, "Hanula", "Gdańsk", 11));
+                 personsList.Add( new Person(11, "Hanula1", "Gdańsk", 11));
+                 personsList.Add( new Person(12, "Hanula2", "Gdańsk", 11));
+                 personsList.Add( new Person(13, "Hanula3", "Gdańsk", 11));
+                 personsList.Add( new Person(20, "Beti", "Sybir", 48));
+                 personsList.Add( new Person(21, "Beti1", "Sybir", 48));
 
             podmiotList = new List<Podmiot>();
-
             podmiotList = personsList.ConvertAll( r=> new Podmiot { id=r.id, nazwa=r.name});
-
         }
 
         private void initValues()
