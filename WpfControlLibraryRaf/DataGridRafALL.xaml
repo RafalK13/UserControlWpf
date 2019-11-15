@@ -50,7 +50,7 @@
                     CanUserAddRows="False"
                     IsReadOnly="True"
                     ItemsSource="{Binding listToDisplay}"
-                    SelectedItem="{Binding selectedItemRafALL, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding selectedItemRafALL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedValue="{Binding selectedValueRafALL}"
                     SelectedValuePath="{Binding selectedValuePathRafALL}"
                     AutoGenerateColumns="False"

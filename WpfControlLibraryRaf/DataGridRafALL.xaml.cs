@@ -76,7 +76,12 @@ namespace WpfControlLibraryRaf
         }
 
         public static readonly DependencyProperty itemSourceRafALLProperty =
-            DependencyProperty.Register("itemSourceRafALL", typeof(IEnumerable), typeof(DataGridRafALL));
+            DependencyProperty.Register("itemSourceRafALL", typeof(IEnumerable), typeof(DataGridRafALL), new PropertyMetadata(null, new PropertyChangedCallback( onItemSourceRafALLChanged) ));
+
+        private static void onItemSourceRafALLChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+           
+        }
         #endregion
 
         #region itemSourceList
@@ -136,7 +141,6 @@ namespace WpfControlLibraryRaf
                             u.selectedIdRafALL = -3;
                         }
                     }
-
                 }
             }
         }
