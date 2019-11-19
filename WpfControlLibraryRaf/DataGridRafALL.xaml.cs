@@ -80,7 +80,7 @@ namespace WpfControlLibraryRaf
 
         private static void onItemSourceRafALLChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-           
+            //MessageBox.Show("itemSourceRafALL");
         }
         #endregion
 
@@ -246,7 +246,7 @@ namespace WpfControlLibraryRaf
         }
         #endregion
 
-        private void DockPanel_Loaded(object sender, RoutedEventArgs e)
+        public void initItemSourceList()
         {
             if (itemSourceRafALL != null)
             {
@@ -256,6 +256,11 @@ namespace WpfControlLibraryRaf
                     nazwa = row.GetType().GetProperty(colNameRaf).GetValue(row).ToString()
                 }).ToList();
             }
+        }
+
+        private void DockPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            initItemSourceList();
         }
 
         private void TekstPropRafALL_LostFocus(object sender, RoutedEventArgs e)
