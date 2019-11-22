@@ -12,6 +12,7 @@ namespace WpfControlLibraryRaf
     {
         public int id { get; set; }
         public string nazwa { get; set; }
+        public Guid guid { get; set; }
     }
 
     public partial class DataGridRafALL : UserControl
@@ -44,6 +45,19 @@ namespace WpfControlLibraryRaf
 
         public static readonly DependencyProperty heightRafALLProperty =
             DependencyProperty.Register("heightRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(25));
+        #endregion
+
+        #region colNameGUID
+
+        public string colNameGUID
+        {
+            get { return (string)GetValue(colNameGUIDProperty); }
+            set { SetValue(colNameGUIDProperty, value); }
+        }
+
+        public static readonly DependencyProperty colNameGUIDProperty =
+            DependencyProperty.Register("colNameGUID", typeof(string), typeof(DataGridRafALL), new PropertyMetadata(null));
+
         #endregion
 
         #region colNameRaf
@@ -106,6 +120,19 @@ namespace WpfControlLibraryRaf
             DependencyProperty.Register("listToDisplay", typeof(List<DataGridTab>), typeof(DataGridRafALL));
         #endregion
 
+        #region selectedGUID
+
+        public Guid selectedGUID
+        {
+            get { return (Guid)GetValue(selectedGUIDProperty); }
+            set { SetValue(selectedGUIDProperty, value); }
+        }
+        
+        public static readonly DependencyProperty selectedGUIDProperty =
+            DependencyProperty.Register("selectedGUID", typeof(Guid), typeof( DataGridRafALL), new PropertyMetadata(null));
+
+        #endregion
+
         #region TekstPropALL
         public string TekstPropALL
         {
@@ -158,14 +185,13 @@ namespace WpfControlLibraryRaf
 
         private static void onSelectedItemRafALLChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //MessageBox.Show("selectedItemRafALL 0");
-            
             DataGridRafALL u = d as DataGridRafALL;
 
             if (u.selectedItemRafALL != null)
             {
                 u.TekstPropALL = u.selectedItemRafALL.nazwa;
                 u.selectedIdRafALL = u.selectedItemRafALL.id;
+                u.selectedGUID = u.selectedItemRafALL.guid;
             }
         }
         #endregion
@@ -190,7 +216,10 @@ namespace WpfControlLibraryRaf
                 var v = u.itemSourceList.FirstOrDefault(r => r.id == u.selectedIdRafALL);
 
                 if (v != null)
+                {
                     u.TekstPropALL = v.nazwa;
+                    u.selectedGUID = v.guid;
+                }
                 else
                 {
                     if (u.selectedIdRafALL != -3)
@@ -250,11 +279,25 @@ namespace WpfControlLibraryRaf
         {
             if (itemSourceRafALL != null)
             {
-                itemSourceList = itemSourceRafALL.Cast<object>().Select(row => new DataGridTab()
+                if (colNameGUID == null)
                 {
-                    id = int.Parse(row.GetType().GetProperty(colNameIdRaf).GetValue(row).ToString()),
-                    nazwa = row.GetType().GetProperty(colNameRaf).GetValue(row).ToString()
-                }).ToList();
+                    //MessageBox.Show("No GUID");
+                    itemSourceList = itemSourceRafALL.Cast<object>().Select(row => new DataGridTab()
+                    {
+                        id = int.Parse(row.GetType().GetProperty(colNameIdRaf).GetValue(row).ToString()),
+                        nazwa = row.GetType().GetProperty(colNameRaf).GetValue(row).ToString()
+                    }).ToList();
+                }
+                else
+                {
+                    //MessageBox.Show("With GUID");
+                    itemSourceList = itemSourceRafALL.Cast<object>().Select(row => new DataGridTab()
+                    {
+                        id = int.Parse(row.GetType().GetProperty(colNameIdRaf).GetValue(row).ToString()),
+                        nazwa = row.GetType().GetProperty(colNameRaf).GetValue(row).ToString(),
+                        guid = Guid.Parse(row.GetType().GetProperty(colNameGUID).GetValue(row).ToString())
+                    }).ToList();
+                }
             }
         }
 
