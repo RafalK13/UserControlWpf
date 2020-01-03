@@ -32,7 +32,7 @@ namespace WpfControlLibraryRaf
             set { SetValue(fontSizeRafALLProperty, value); }
         }
         public static readonly DependencyProperty fontSizeRafALLProperty =
-            DependencyProperty.Register("fontSizeRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(14));
+            DependencyProperty.Register("fontSizeRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(12));
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace WpfControlLibraryRaf
         }
 
         public static readonly DependencyProperty heightRafALLProperty =
-            DependencyProperty.Register("heightRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(25));
+            DependencyProperty.Register("heightRafALL", typeof(int), typeof(DataGridRaf), new PropertyMetadata(18));
         #endregion
 
         #region colNameGUID
@@ -224,7 +224,7 @@ namespace WpfControlLibraryRaf
                 {
                     if (u.selectedIdRafALL != -3)
                     {
-                        u.TekstPropALL = string.Empty;
+                        //u.TekstPropALL = string.Empty;    //2020-01-03
                         u.listToDisplay = null;
                     }
                 }
