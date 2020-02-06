@@ -16,7 +16,7 @@ namespace UserControlWPF
 {
     public class Person
     {
-        public int id { get; set; }
+        public int? id { get; set; }
         public string name { get; set; }
         public string city { get; set; }
         public int age { get; set; }
@@ -140,7 +140,7 @@ namespace UserControlWPF
                  personsList.Add( new Person(21, "Beti1", "Sybir", 48));
 
             podmiotList = new List<Podmiot>();
-            podmiotList = personsList.ConvertAll( r=> new Podmiot { id=r.id, nazwa=r.name});
+            podmiotList = personsList.ConvertAll( r=> new Podmiot { id=r.id.Value, nazwa=r.name});
         }
 
         private void initValues()

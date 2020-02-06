@@ -148,14 +148,19 @@ namespace WpfControlLibraryRaf
 
             if (u.TekstPropALL != null)
             {
+
                 if (u.TekstPropALL.Length >= 2)
                 {
+                    //MessageBox.Show("2");
+
                     u.listToDisplay = u.itemSourceList.Where(r => r.nazwa.ToUpper().Contains(u.TekstPropALL.ToUpper()) == true).ToList();
 
                     if (u.listToDisplay.Count() == 0)
                         u.selectedIdRafALL = -3;
                     else
                     {
+                        //MessageBox.Show("3");
+
                         var v = u.listToDisplay.FirstOrDefault(row => row.nazwa == u.TekstPropALL);
                         //var v = u.listToDisplay.FirstOrDefault(row => row.nazwa.Contains(u.TekstPropALL));
                         if (v != null)
@@ -169,6 +174,7 @@ namespace WpfControlLibraryRaf
                         }
                     }
                 }
+               
             }
         }
         #endregion
@@ -198,18 +204,23 @@ namespace WpfControlLibraryRaf
 
         #region selectedIdRafALL
         
-        public int selectedIdRafALL
+        public int? selectedIdRafALL
         {
-            get { return (int)GetValue(selectedIdRafALLProperty); }
+            get { return (int?)GetValue(selectedIdRafALLProperty); }
             set { SetValue(selectedIdRafALLProperty, value); }
         }
 
         public static readonly DependencyProperty selectedIdRafALLProperty =
-            DependencyProperty.Register("selectedIdRafALL", typeof(int), typeof(DataGridRafALL), new PropertyMetadata(0, new PropertyChangedCallback(onChangeSelectedIdRafALL)));
+            DependencyProperty.Register("selectedIdRafALL", typeof(int?), typeof(DataGridRafALL), new PropertyMetadata(0, new PropertyChangedCallback(onChangeSelectedIdRafALL)));
 
         private static void onChangeSelectedIdRafALL(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DataGridRafALL u = d as DataGridRafALL;
+
+            if (u.selectedIdRafALL.HasValue == false)
+            {
+                u.clsValues();
+            }
 
             if (u.itemSourceList != null)
             {
@@ -336,14 +347,14 @@ namespace WpfControlLibraryRaf
         }
         #endregion
         
-        public int selectedId
-        {
-            get { return (int)GetValue(selectedIdProperty); }
-            set { SetValue(selectedIdProperty, value); }
-        }
+        //public int selectedId
+        //{
+        //    get { return (int)GetValue(selectedIdProperty); }
+        //    set { SetValue(selectedIdProperty, value); }
+        //}
 
-        public static readonly DependencyProperty selectedIdProperty =
-            DependencyProperty.Register("selectedId", typeof(int), typeof(DataGridRafALL));
+        //public static readonly DependencyProperty selectedIdProperty =
+        //    DependencyProperty.Register("selectedId", typeof(int), typeof(DataGridRafALL));
         
     }
 }
