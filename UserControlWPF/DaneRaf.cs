@@ -45,8 +45,7 @@ namespace UserControlWPF
                 NotifyPropertyChanged("stringResult");
             }
         }
-
-
+        
         public int _idRaf;
         public int idRaf { get => _idRaf;
             set {
@@ -141,6 +140,7 @@ namespace UserControlWPF
 
             podmiotList = new List<Podmiot>();
             podmiotList = personsList.ConvertAll( r=> new Podmiot { id=r.id.Value, nazwa=r.name});
+
         }
 
         private void initValues()

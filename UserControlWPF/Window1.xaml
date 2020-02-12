@@ -1,0 +1,29 @@
+﻿<Window x:Class="UserControlWPF.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:UserControlWPF"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:WpfControlLibraryRaf;assembly=WpfControlLibraryRaf"
+        mc:Ignorable="d"
+        x:Name="Window1Raf"
+        Title="Window1" Height="300" Width="300">
+
+    <Window.DataContext>
+        <local:CarsRaf/>
+    </Window.DataContext>
+    <StackPanel>
+    <TextBox 
+            Text="{Binding idRaf ,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />
+        <controls:DataGridRafALL
+            Name="controlRafALL"
+            itemSourceRafALL="{Binding Path=DataContext.cars, ElementName=Window1Raf}"
+            selectedIdRafALL="{Binding Path=DataContext.idRaf, ElementName=Window1Raf, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            colNameIdRaf="id"
+            colNameRaf="name"
+            clearTekstOnExit="False"
+            />
+        
+    </StackPanel>
+</Window>

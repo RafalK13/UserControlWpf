@@ -192,7 +192,7 @@ namespace WpfControlLibraryRaf
         private static void onSelectedItemRafALLChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DataGridRafALL u = d as DataGridRafALL;
-
+            int a = 13;
             if (u.selectedItemRafALL != null)
             {
                 u.TekstPropALL = u.selectedItemRafALL.nazwa;
@@ -211,11 +211,12 @@ namespace WpfControlLibraryRaf
         }
 
         public static readonly DependencyProperty selectedIdRafALLProperty =
-            DependencyProperty.Register("selectedIdRafALL", typeof(int?), typeof(DataGridRafALL), new PropertyMetadata(0, new PropertyChangedCallback(onChangeSelectedIdRafALL)));
+            DependencyProperty.Register("selectedIdRafALL", typeof(int?), typeof(DataGridRafALL), new PropertyMetadata(10, new PropertyChangedCallback(onChangeSelectedIdRafALL)));
 
         private static void onChangeSelectedIdRafALL(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DataGridRafALL u = d as DataGridRafALL;
+            int a = 13;           
 
             if (u.selectedIdRafALL.HasValue == false)
             {
@@ -315,6 +316,16 @@ namespace WpfControlLibraryRaf
         private void DockPanel_Loaded(object sender, RoutedEventArgs e)
         {
             initItemSourceList();
+
+            if (selectedIdRafALL.HasValue)
+            {
+                if (itemSourceList.Any(r => r.id == selectedIdRafALL.Value))
+                    TekstPropALL = itemSourceList.FirstOrDefault(r => r.id == selectedIdRafALL.Value).nazwa;
+
+                
+                //TekstPropALL
+            }
+            int a = 13;
         }
 
         private void TekstPropRafALL_LostFocus(object sender, RoutedEventArgs e)
