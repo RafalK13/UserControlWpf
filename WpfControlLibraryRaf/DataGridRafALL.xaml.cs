@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -317,15 +318,20 @@ namespace WpfControlLibraryRaf
         {
             initItemSourceList();
 
-            if (selectedIdRafALL.HasValue)
+            if (selectedIdRafALL.HasValue == true)
             {
-                if (itemSourceList.Any(r => r.id == selectedIdRafALL.Value))
-                    TekstPropALL = itemSourceList.FirstOrDefault(r => r.id == selectedIdRafALL.Value).nazwa;
-
-                
-                //TekstPropALL
+                try
+                {
+                    if (itemSourceList.Any(r => r.id == selectedIdRafALL.Value))
+                    {
+                        TekstPropALL = itemSourceList.FirstOrDefault(r => r.id == selectedIdRafALL.Value).nazwa;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Debug.WriteLine($"BŁĄD : Rafałek { ex.Message}");
+                }
             }
-            int a = 13;
         }
 
         private void TekstPropRafALL_LostFocus(object sender, RoutedEventArgs e)
