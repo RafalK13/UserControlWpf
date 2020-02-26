@@ -147,6 +147,7 @@ namespace WpfControlLibraryRaf
         {
             DataGridRafALL u = d as DataGridRafALL;
 
+            if(u.itemSourceList != null)
             if (u.TekstPropALL != null)
             {
 
@@ -295,6 +296,7 @@ namespace WpfControlLibraryRaf
                 if (colNameGUID == null)
                 {
                     //MessageBox.Show("No GUID");
+
                     itemSourceList = itemSourceRafALL.Cast<object>().Select(row => new DataGridTab()
                     {
                         id = int.Parse(row.GetType().GetProperty(colNameIdRaf).GetValue(row).ToString()),
